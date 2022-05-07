@@ -1,4 +1,42 @@
-.App {
-    text-align: center;
-    margin: 0 30px;
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
+.grid{
+    background-color: #F1F4F5;
+
 }
+h1{padding: 2px;
+
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 40px;
+    line-height: 60px;
+}
+.logo
+{ margin:  20px;
+    height: 27px;
+    width: 150px;
+}
+p{
+    width: 436px;
+    padding: 2PX;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size:18px;
+    line-height: 24px;
+}
+h6{font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 130%;
+    /* identical to box height, or 24px */
+    
+    letter-spacing: 0.15px;
+    }
+
+    a{
+        text-decoration:none ;
+    }
