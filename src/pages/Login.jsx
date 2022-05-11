@@ -8,6 +8,8 @@ import {
   InputAdornment,
 } from '@mui/material';
 
+import { Link } from 'react-router-dom';
+
 import loginIcon from '../assets/img_bac.jpg';
 import '../styles/Login.css';
 import Logo from '../assets/logo.png';
@@ -44,12 +46,12 @@ export default function Connexion() {
 
   return (
     <div className="grid">
-      <Container mawWith="lg">
+      <Container>
         <nav style={{ width: '100%', height: '100px' }}>
           {' '}
           <img src={Logo} alt="logo" className="logo" />
         </nav>
-        <Grid container="lg" spacing={2} justifyContent="center">
+        <Grid container spacing={2} justifyContent="center">
           <Grid item md={7} xs={12} textAlign="center">
             {' '}
             <img
@@ -61,7 +63,7 @@ export default function Connexion() {
           </Grid>
           <Grid item md={5} xs={11} paddingLeft="20PX">
             <h1>Re Bonjour !</h1>
-            <p class="mb-0">
+            <p className="mb-0">
               Pour rester connecté avec nous, veuillez-vous identifier avec
               votre adresse email et votre mot de passe..
             </p>
@@ -149,7 +151,8 @@ export default function Connexion() {
             <Grid item md={12} xs={10} lg={11} textAlign="center">
               {' '}
               <h6>
-                vous n'etes pas encore inscrit ? <a href="/">inscrivez vous</a>
+                vous n'etes pas encore inscrit ?{' '}
+                <Link to="/register">Home</Link>
               </h6>{' '}
             </Grid>
           </Grid>

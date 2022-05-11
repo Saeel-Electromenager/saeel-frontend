@@ -7,6 +7,7 @@ import {
   InputAdornment,
 } from '@mui/material';
 
+import { Link } from 'react-router-dom';
 import LockIcon from '@mui/icons-material/Lock';
 import Emailicon from '@mui/icons-material/Email';
 import Logo from '../assets/logo.png';
@@ -34,7 +35,7 @@ export default function Inscription() {
     const encrypt = require('../controlers/encrypt');
     axios({
       method: 'post',
-      url: 'http://192.168.220.228:3000/api/user/signup',
+      url: 'http://localhost:3000/api/user/signup',
       headers: {
         Authorization2: encrypt,
         Accept: 'application/json',
@@ -57,7 +58,7 @@ export default function Inscription() {
           {' '}
           <h1> Inscription</h1>
         </Grid>
-        <Grid textAlign="center" spacing={3} p={3}>
+        <Grid textAlign="center" p={3}>
           {' '}
           <TextField
             id="nom"
@@ -68,7 +69,6 @@ export default function Inscription() {
             style={{ paddingRight: '40px', width: '40%' }}
           />
           <TextField
-            EmailIcon
             id="prenom"
             label="prenom"
             variant="outlined"
@@ -174,19 +174,19 @@ export default function Inscription() {
         <Grid item md={12} xs={10} lg={11} textAlign="center">
           {' '}
           <h6 style={{ marginRigt: '40px' }}>
-            vous avez déja un compte ? <a href="/">connectez vous</a>
+            vous avez déja un compte ? <Link to="/login">connectez vous</Link>
           </h6>{' '}
         </Grid>
       </Grid>
       <Grid item md={6}>
-        <div class="contenant">
+        <div className="contenant">
           <img src={Img} alt="" style={{ minWidth: '100%', height: 'auto' }} />
-          <div class="texte_centrer">
+          <div className="texte_centrer">
             « Je voulais un moyen d’acheter des produit électroménager sans me
             déplacer. Mon seul regret, c’est de ne pas avoir choisi Saeel avant
             »
           </div>
-          <p class="texte_centrer2">
+          <p className="texte_centrer2">
             Sidali - Etudiant en informatique en en quête d’achat de produit
             électroménager
           </p>

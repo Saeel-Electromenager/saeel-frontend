@@ -1,0 +1,31 @@
+.container {
+  width: 100%;
+}
+
+.svg_icons {
+  transform: scale(1.8);
+  margin: 0 6px 0 20px;
+}
+
+.container Button {
+  border-radius: 10px 0 0 10px;
+  color: #CACCD9;
+  justify-content: left;
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 30px;
+  padding: 15px 0;
+}
+
+.container Button.active {
+  color: #101010;
+  background-color: #fcfcfc;
+  border-radius: 10px 0 0 10px;
+}
+
+.container Button:hover {
+  color: #101010;
+  background-color: #ffffff;
+}
