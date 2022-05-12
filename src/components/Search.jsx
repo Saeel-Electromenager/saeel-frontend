@@ -7,6 +7,19 @@ import '../styles/search.css';
 import Divider from '@mui/material/Divider';
 
 export default function Search() {
+  const [search, editSearch] = React.useState({
+    key: '',
+    category: 0,
+  });
+  const handleChange = (prop) => (event) => {
+    editSearch({ ...search, [prop]: event.target.value });
+  };
+
+  const sss = (e) => {
+    e.preventDefault();
+    console.log(search);
+  };
+
   return (
     <Box
       sx={{
@@ -56,11 +69,13 @@ export default function Search() {
       </Grid>
       <Grid
         component="form"
+        onSubmit={sss}
         sx={{
           display: 'flex',
           alignItems: 'center',
           width: 'calc(100% - 380px)',
           height: 50,
+          mt: 1,
           borderStyle: 'solid',
           borderColor: 'blue',
           borderWidth: '4px 0 4px 4px',
@@ -69,24 +84,36 @@ export default function Search() {
         <InputBase
           sx={{ ml: 1, flex: 1, fontFamily: 'Poppins' }}
           placeholder="Cuisinière Samsung"
+          value={search.key}
+          onChange={handleChange('key')}
           inputProps={{ 'aria-label': 'search saeel' }}
         />
         <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
         <NativeSelect
-          defaultValue={10}
+          defaultValue={0}
           sx={{
             margin: '0 15px',
             fontFamily: 'Poppins',
           }}
           disableUnderline
+          value={search.category}
+          onChange={handleChange('category')}
           inputProps={{
             name: 'age',
             id: 'uncontrolled-native',
           }}
         >
-          <option value={10}>Categories</option>
-          <option value={20}>Twenty</option>
-          <option value={30}>Thirty</option>
+          <option value={0}>Categories</option>
+          <option value={1}>Cuisinière à gaz</option>
+          <option value={2}>Four Micro-Ondes</option>
+          <option value={3}>Mini Four</option>
+          <option value={4}>Plaque de cuisson</option>
+          <option value={5}>Hotte Aspirante</option>
+          <option value={6}>Lave Linge</option>
+          <option value={7}>Climatiseur</option>
+          <option value={8}>Lave Vaisselle</option>
+          <option value={9}>Congélateur</option>
+          <option value={10}>Réfrigérateur</option>
         </NativeSelect>
         <Box
           sx={{

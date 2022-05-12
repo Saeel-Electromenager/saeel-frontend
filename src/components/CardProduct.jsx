@@ -5,8 +5,6 @@ import {
   CardContent,
   Button,
   Box,
-  Divider,
-  Grid,
   Rating,
   CardMedia,
   Typography,
@@ -19,10 +17,12 @@ const StyledRating = styled(Rating)({
   },
 });
 
-export default function CardProduct({ product }) {
+export default function CardProduct({ product, marker }) {
   return (
     <Card
       sx={{
+        position: 'relative',
+        overflow: 'visible',
         maxWidth: 250,
         bgColor: '#FFFFFF',
         boxShadow: 'inset 0px 2px 5px rgba(0, 0, 0, 0.25)',
@@ -147,6 +147,7 @@ export default function CardProduct({ product }) {
               fontWeight: 500,
               textAlign: 'center',
               bgcolor: '#FA533C',
+              borderRadius: '8px',
             },
             (theme) => ({
               '&:hover': {
@@ -159,6 +160,47 @@ export default function CardProduct({ product }) {
           Voir plus
         </Button>
       </CardActions>
+      <Box
+        style={{
+          top: 30,
+          left: -5,
+          zIndex: '22',
+          position: 'absolute',
+          backgroundImage: 'url(../assets/flag-card.svg)',
+          p: '30px',
+        }}
+      >
+        <svg
+          width="72"
+          height="27"
+          viewBox="0 0 72 27"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          style={{
+            position: 'absolute',
+          }}
+        >
+          <path d="M0 0H58V24H0V0Z" fill="#FA533C" />
+          <path d="M5 27L0 24H5V27Z" fill="#A33D2F" />
+          <path d="M72 0L58 12V0H72Z" fill="#FA533C" />
+          <path d="M72 24H58V12L72 24Z" fill="#FA533C" />
+        </svg>
+        <span
+          style={{
+            zIndex: '22',
+            position: 'absolute',
+            left: 13,
+            top: 1,
+            fontSize: '14px',
+            fontFamily: 'Poppins',
+            fontStyle: 'normal',
+            fontWeight: 500,
+            color: '#FCFCFC',
+          }}
+        >
+          {marker}
+        </span>
+      </Box>
     </Card>
   );
 }

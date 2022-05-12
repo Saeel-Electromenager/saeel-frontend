@@ -3,7 +3,7 @@ import { Grid, Typography } from '@mui/material';
 import CardProduct from './CardProduct';
 import { Link } from 'react-router-dom';
 
-export default function TopRatedHome() {
+export default function NewProductHome() {
   const [products] = React.useState([
     {
       id: 233,
@@ -111,11 +111,11 @@ export default function TopRatedHome() {
             lineHeight: '30px',
           }}
         >
-          Les mieux notés
+          Les nouveaux produits
         </Typography>
         <Link
           className="show-more-top-rate-products"
-          to="/top-rate"
+          to="/new-products"
           style={{
             textDecoration: 'none',
             fontFamily: 'Poppins',
@@ -140,11 +140,12 @@ export default function TopRatedHome() {
         }}
       >
         {products.map((product, index) => {
+          console.log(index);
           if (index < 4)
             return (
               <CardProduct
                 key={`${product.id}-${index}`}
-                marker="Rate"
+                marker="New"
                 product={product}
               />
             );

@@ -6,11 +6,13 @@ import Search from '../components/Search';
 import SwiperHome from '../components/SwiperHome';
 import ArgumentHome from '../components/ArgumentHome';
 import TopRatedHome from '../components/TopRatedHome';
+import NewProductHome from '../components/NewProductHome';
+import CategoriesHome from '../components/CategoriesHome';
 
 export default function Home() {
   return (
     <Container maxWidth="xl">
-      <div className="test"></div>
+      <div style={{ padding: 50 }} className="test"></div>
       <Grid
         container
         spacing={3}
@@ -20,7 +22,7 @@ export default function Home() {
       >
         {/* Menu */}
         <Grid item xs={2}>
-          <Grid style={{ height: '100%' }}>
+          <Grid style={{ height: '100%', marginTop: 30 }}>
             <Menu />
           </Grid>
         </Grid>
@@ -36,12 +38,14 @@ export default function Home() {
           <Grid
             container
             spacing={3}
-            sx={{ padding: '0 50px', rowGap: '50px' }}
+            sx={{ padding: '20px 50px 100px 50px', rowGap: '50px' }}
           >
             <Search />
             <SwiperHome />
             <ArgumentHome />
             <TopRatedHome />
+            <NewProductHome />
+            <CategoriesHome />
           </Grid>
         </Grid>
       </Grid>
