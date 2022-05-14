@@ -2,68 +2,81 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
 
 .contenant {
-    position: relative;
-   
-    color: rgb(255, 255, 255);
+  position: relative;
 
+  color: rgb(255, 255, 255);
 
-    
-    font-family: 'Poppins';
-    font-style: normal;
-    font-weight: 700;
-    font-size:18px;
-    line-height: 100%;
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 100%;
 
-    
-    letter-spacing: 1px;
-    
-    color: #FFFFFF;
-  }
-  h1{
-    font-family: 'Poppins';
-font-style: normal;
-font-weight: 700;
-font-size: 40px;
-line-height: 60px;
-  }
-  
-  h6{
-  
-    font-family: 'Roboto';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 13px;
-    line-height: 130%;
-    /* identical to box height, or 24px */
-    margin-left: 80px;
-    letter-spacing: 0.15px;
-    }
+  letter-spacing: 1px;
 
-    a{
-        text-decoration:none ;
-    }
-
-  .logo
-{ margin:  20px;
-    height: 27px;
-    width: 150px;
+  color: #ffffff;
 }
-  .texte_centrer {
-    position: absolute;
-    top: 3%;
-    left: 20%;
-    transform: translate(-13%, 0%);
+h1 {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 60px;
+}
+
+h6 {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 130%;
+  /* identical to box height, or 24px */
+  letter-spacing: 0.15px;
+}
+
+a {
+  text-decoration: none;
+}
+
+.logo {
+  margin: 20px;
+  height: 27px;
+  width: 150px;
+}
+.texte_centrer {
+  position: absolute;
+  top: 3%;
+  left: 20%;
+  transform: translate(-13%, 0%);
+}
+.texte_centrer2 {
+  position: absolute;
+  top: 17%;
+  left: 16%;
+  transform: translate(-13%, 0%);
+  color: #e0e0e0;
+
+  /* or 27px */
+
+  letter-spacing: 0.15px;
+}
+
+h5{font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 130%;
+  /* identical to box height, or 24px */
+  margin: auto;
   }
-  .texte_centrer2 {
-    position: absolute;
-    top: 17%;
-    left: 16%;
-    transform: translate(-13%, 0%);
-    color: #e0e0e0;
 
-/* or 27px */
-
-letter-spacing: 0.15px;
+  a{
+      text-decoration:none ;
   }
 
-
+  @media only screen and (max-width: 900px) {
+.image
+{
+  display: none;
+}
+  }

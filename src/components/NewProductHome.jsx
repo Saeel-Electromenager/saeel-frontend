@@ -4,6 +4,14 @@ import CardProduct from './CardProduct';
 import { Link } from 'react-router-dom';
 
 export default function NewProductHome() {
+  function maxItem() {
+    const width = window.innerWidth;
+    if (width > 1896) return 6;
+    if (width > 1631) return 5;
+    if (width > 1366) return 4;
+    if (width > 992) return 3;
+    return 4;
+  }
   const [products] = React.useState([
     {
       id: 233,
@@ -140,8 +148,7 @@ export default function NewProductHome() {
         }}
       >
         {products.map((product, index) => {
-          console.log(index);
-          if (index < 4)
+          if (index < maxItem())
             return (
               <CardProduct
                 key={`${product.id}-${index}`}
