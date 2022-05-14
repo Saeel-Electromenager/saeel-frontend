@@ -27,16 +27,3 @@ p{
     font-size:18px;
     line-height: 24px;
 }
-h6{font-family: 'Roboto';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 13px;
-    line-height: 130%;
-    /* identical to box height, or 24px */
-    
-    letter-spacing: 0.15px;
-    }
-
-    a{
-        text-decoration:none ;
-    }

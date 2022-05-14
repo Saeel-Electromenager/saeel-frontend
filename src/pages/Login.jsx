@@ -6,6 +6,7 @@ import {
   Container,
   Button,
   InputAdornment,
+  Typography,
 } from '@mui/material';
 
 import { Link } from 'react-router-dom';
@@ -149,11 +150,19 @@ export default function Connexion() {
               </Grid>
             </Grid>
             <Grid item md={12} xs={10} lg={11} textAlign="center">
-              {' '}
-              <h6>
+              <Typography
+                component="h6"
+                sx={{
+                  fontFamily: 'Roboto',
+                  fontStyle: 'normal',
+                  fontWeight: '400',
+                  fontSize: '13px',
+                  lineHeight: '130%',
+                }}
+              >
                 vous n'etes pas encore inscrit ?{' '}
-                <Link to="/register">Home</Link>
-              </h6>{' '}
+                <Link to="/register">Connexion</Link>
+              </Typography>{' '}
             </Grid>
           </Grid>
         </Grid>

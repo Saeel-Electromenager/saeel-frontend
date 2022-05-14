@@ -4,6 +4,7 @@ import InputBase from '@mui/material/InputBase';
 import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
 import '../styles/search.css';
+import { useMediaQuery } from '@mui/material';
 import Divider from '@mui/material/Divider';
 
 export default function Search() {
@@ -15,7 +16,7 @@ export default function Search() {
     editSearch({ ...search, [prop]: event.target.value });
   };
 
-  const sss = (e) => {
+  const searchNow = (e) => {
     e.preventDefault();
     console.log(search);
   };
@@ -67,17 +68,21 @@ export default function Search() {
           , Kolchi Sahel
         </Typography>
       </Grid>
+
       <Grid
         component="form"
-        onSubmit={sss}
+        onSubmit={searchNow}
+        width={
+          useMediaQuery('(min-width:1050px)') ? 'calc(100% - 380px)' : '100%'
+        }
+        marginTop={useMediaQuery('(min-width:1050px)') ? 1 : 2}
         sx={{
           display: 'flex',
           alignItems: 'center',
-          width: 'calc(100% - 380px)',
+
           height: 50,
-          mt: 1,
           borderStyle: 'solid',
-          borderColor: 'blue',
+          borderColor: '#5C4EBD',
           borderWidth: '4px 0 4px 4px',
         }}
       >
@@ -88,10 +93,17 @@ export default function Search() {
           onChange={handleChange('key')}
           inputProps={{ 'aria-label': 'search saeel' }}
         />
-        <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-        <NativeSelect
-          defaultValue={0}
+        <Divider
           sx={{
+            display: window.innerWidth < 650 ? 'none' : '',
+            height: 28,
+            m: 0.5,
+          }}
+          orientation="vertical"
+        />
+        <NativeSelect
+          style={{
+            display: window.innerWidth < 650 ? 'none' : '',
             margin: '0 15px',
             fontFamily: 'Poppins',
           }}
@@ -99,8 +111,8 @@ export default function Search() {
           value={search.category}
           onChange={handleChange('category')}
           inputProps={{
-            name: 'age',
-            id: 'uncontrolled-native',
+            name: 'category',
+            id: 'category-search-selector',
           }}
         >
           <option value={0}>Categories</option>
@@ -117,7 +129,7 @@ export default function Search() {
         </NativeSelect>
         <Box
           sx={{
-            backgroundColor: 'blue',
+            backgroundColor: '#5C4EBD',
           }}
         >
           <IconButton type="submit" sx={{ p: '10px' }} aria-label="search">

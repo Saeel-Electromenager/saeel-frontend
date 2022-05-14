@@ -23,10 +23,12 @@ export default function CardProduct({ product, marker }) {
       sx={{
         position: 'relative',
         overflow: 'visible',
-        maxWidth: 250,
+        width: window.innerWidth < 992 ? '100%' : '250px',
         bgColor: '#FFFFFF',
         boxShadow: 'inset 0px 2px 5px rgba(0, 0, 0, 0.25)',
         borderRadius: '14px',
+        display: 'flex',
+        flexDirection: 'column',
       }}
     >
       <CardMedia
@@ -135,38 +137,37 @@ export default function CardProduct({ product, marker }) {
         >
           {product.price - product.discount + ',00 DA'}
         </Typography>
-      </CardContent>
-      <CardActions>
-        <Button
-          sx={[
-            {
-              m: '0 auto 15px auto',
-              fontSize: '15px',
-              fontFamily: 'Poppins',
-              fontStyle: 'normal',
-              fontWeight: 500,
-              textAlign: 'center',
-              bgcolor: '#FA533C',
-              borderRadius: '8px',
-            },
-            (theme) => ({
-              '&:hover': {
-                bgcolor: '#FF2406',
+        <CardActions>
+          <Button
+            sx={[
+              {
+                m: '15px auto 0 auto',
+                fontSize: '15px',
+                fontFamily: 'Poppins',
+                fontStyle: 'normal',
+                fontWeight: 500,
+                textAlign: 'center',
+                bgcolor: '#FA533C',
+                borderRadius: '8px',
               },
-            }),
-          ]}
-          variant="contained"
-        >
-          Voir plus
-        </Button>
-      </CardActions>
+              (theme) => ({
+                '&:hover': {
+                  bgcolor: '#FF2406',
+                },
+              }),
+            ]}
+            variant="contained"
+          >
+            Voir plus
+          </Button>
+        </CardActions>
+      </CardContent>
       <Box
         style={{
           top: 30,
           left: -5,
           zIndex: '22',
           position: 'absolute',
-          backgroundImage: 'url(../assets/flag-card.svg)',
           p: '30px',
         }}
       >

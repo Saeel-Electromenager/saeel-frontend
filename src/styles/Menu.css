@@ -3,7 +3,7 @@
 }
 
 .svg_icons {
-  transform: scale(1.8);
+  transform: scale(1.6);
   margin: 0 6px 0 20px;
 }
 
@@ -14,9 +14,9 @@
   font-family: 'Poppins';
   font-style: normal;
   font-weight: 700;
-  font-size: 20px;
+  font-size: 17px;
   line-height: 30px;
-  padding: 15px 0;
+  padding: 15px 15px 15px 0;
 }
 
 .container Button.active {
@@ -28,4 +28,42 @@
 .container Button:hover {
   color: #101010;
   background-color: #ffffff;
+}
+
+
+
+.button-connection-home Button.button-connection {
+  border-radius: 10px;
+  color: #F1F4F5;
+  background-color: #5C4EBD;
+  justify-content: center;
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 15px;
+  padding: 10px 15px;
+  line-height: 30px;
+  margin: 0 10px;
+}
+
+.button-connection-home Button.button-connection:hover {
+  color: #101010;
+
+  background-color: #ffffff;
+}
+
+.button-connection-home Button .svg_icons {
+  transform: scale(1.4);
+}
+
+.account-mobile {
+  color: #5C4EBD;
+}
+.button-connection-home .circle-account {
+  background-color: transparent;
+  transform: scale(1.6);
+  margin-left: 10px;
+}
+.button-connection-home Button:hover {
+  background-color: transparent;
 }

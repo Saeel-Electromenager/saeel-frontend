@@ -4,6 +4,14 @@ import CardProduct from './CardProduct';
 import { Link } from 'react-router-dom';
 
 export default function TopRatedHome() {
+  function maxItem() {
+    const width = window.innerWidth;
+    if (width > 1896) return 6;
+    if (width > 1631) return 5;
+    if (width > 1366) return 4;
+    if (width > 992) return 3;
+    return 4;
+  }
   const [products] = React.useState([
     {
       id: 233,
@@ -90,10 +98,28 @@ export default function TopRatedHome() {
         'https://boulanger.scene7.com/is/image/Boulanger/7332543834808_h_f_l_0?wid=500&hei=500',
       ],
     },
+    {
+      id: 23,
+      category: '',
+      title: 'Barbecue gaz Weber Spirit II E-310..',
+      model: 'Galaxy 56K T5',
+      price: 70000,
+      description: 'LOREM MA GUEULE',
+      discount: 14000,
+      quantity: 10,
+      rating: {
+        rate: 4,
+        raters: 23,
+      },
+      images: [
+        'https://boulanger.scene7.com/is/image/Boulanger/7332543834808_h_f_l_0?wid=500&hei=500',
+      ],
+    },
   ]);
   return (
     <Grid sx={{ width: '100%' }}>
       <Grid
+        container
         sx={{
           display: 'flex',
           flexDirection: 'row',
@@ -129,6 +155,7 @@ export default function TopRatedHome() {
         </Link>
       </Grid>
       <Grid
+        container
         sx={{
           display: 'flex',
           flexWrap: 'wrap',
@@ -140,7 +167,7 @@ export default function TopRatedHome() {
         }}
       >
         {products.map((product, index) => {
-          if (index < 4)
+          if (index < maxItem())
             return (
               <CardProduct
                 key={`${product.id}-${index}`}

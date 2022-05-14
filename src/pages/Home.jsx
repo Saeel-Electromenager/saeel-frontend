@@ -2,51 +2,41 @@ import * as React from 'react';
 import { Container, Grid } from '@mui/material';
 import Menu from '../components/Menu';
 import '../styles/Home.css';
-import Search from '../components/Search';
-import SwiperHome from '../components/SwiperHome';
-import ArgumentHome from '../components/ArgumentHome';
-import TopRatedHome from '../components/TopRatedHome';
-import NewProductHome from '../components/NewProductHome';
-import CategoriesHome from '../components/CategoriesHome';
+import Body from '../components/Body';
 
 export default function Home() {
+  const [activeClasse, updateActiveClasse] = React.useState('Home');
   return (
-    <Container maxWidth="xl">
+    <Container maxWidth="100%">
       <div style={{ padding: 50 }} className="test"></div>
       <Grid
         container
-        spacing={3}
         direction="row"
+        display="flex"
+        wrap="nowrap"
         justify="center"
         alignItems="stretch"
       >
         {/* Menu */}
-        <Grid item xs={2}>
-          <Grid style={{ height: '100%', marginTop: 30 }}>
-            <Menu />
+        <Grid item display={window.innerWidth < 600 ? 'none' : 'block'}>
+          <Grid style={{ height: '100%', marginTop: 50 }}>
+            <Menu
+              activeClaase={activeClasse}
+              updateActiveClasse={updateActiveClasse}
+            />
           </Grid>
         </Grid>
 
         <Grid
           item
-          xs={10}
           style={{
+            paddingTop: '10px',
             borderRadius: '13px',
             backgroundColor: '#fcfcfc',
+            width: '100%',
           }}
         >
-          <Grid
-            container
-            spacing={3}
-            sx={{ padding: '20px 50px 100px 50px', rowGap: '50px' }}
-          >
-            <Search />
-            <SwiperHome />
-            <ArgumentHome />
-            <TopRatedHome />
-            <NewProductHome />
-            <CategoriesHome />
-          </Grid>
+          <Body activeClasse={activeClasse} />
         </Grid>
       </Grid>
     </Container>

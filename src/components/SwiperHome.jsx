@@ -1,5 +1,6 @@
-import { Box, Grid, Typography } from '@mui/material';
+import { Button, Box, Grid, Typography } from '@mui/material';
 import * as React from 'react';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 export default function SwiperHome() {
   return (
@@ -8,7 +9,6 @@ export default function SwiperHome() {
         background:
           'linear-gradient(270deg, rgba(92, 78, 189, 0.8) 0%, rgba(255, 255, 255, 0) 100%)',
         borderRadius: '10px',
-        height: '161px',
         width: '100%',
         display: 'grid',
         flexWrap: 'wrap',
@@ -17,13 +17,13 @@ export default function SwiperHome() {
     >
       <Grid
         container
-        spacing={3}
         direction="row"
         justify="center"
         alignItems="stretch"
-        margin={0}
+        margin="10px 0px 20px 10px"
+        padding="0"
       >
-        <Grid item xs={3}>
+        <Grid item xs={window.innerWidth < 800 ? 12 : 3}>
           <Typography
             variant="h3"
             component="h3"
@@ -49,8 +49,13 @@ export default function SwiperHome() {
           >
             Pour vous, des offres de hbaal ! des promos jusqu’à 80%
           </Typography>
+          <Grid marginTop="10px" className="swiper-home-show-more">
+            <Button endIcon={<ArrowForwardIcon style={{ fontSize: '25px' }} />}>
+              Voir plus
+            </Button>
+          </Grid>
         </Grid>
-        <Grid item xs={9}>
+        <Grid item xs={window.innerWidth < 600 ? 12 : 9}>
           {/* ----- Swiper Here ----- */}
         </Grid>
       </Grid>

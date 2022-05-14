@@ -131,6 +131,7 @@ export default function CategoriesHome() {
                 {element.contents.map((content, index2) => {
                   return (
                     <Typography
+                      key={index2}
                       sx={{
                         fontFamily: 'Poppins',
                         fontStyle: 'normal',
