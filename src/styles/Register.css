@@ -60,3 +60,23 @@ a {
 
   letter-spacing: 0.15px;
 }
+
+h5{font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 130%;
+  /* identical to box height, or 24px */
+  margin: auto;
+  }
+
+  a{
+      text-decoration:none ;
+  }
+
+  @media only screen and (max-width: 900px) {
+.image
+{
+  display: none;
+}
+  }

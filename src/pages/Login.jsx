@@ -53,7 +53,7 @@ export default function Connexion() {
           <img src={Logo} alt="logo" className="logo" />
         </nav>
         <Grid container spacing={2} justifyContent="center">
-          <Grid item md={7} xs={12} textAlign="center">
+          <Grid item md={7} xs={12} textAlign="center" className="image2">
             {' '}
             <img
               className="icon-img"
