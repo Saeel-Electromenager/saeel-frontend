@@ -5,6 +5,8 @@ import {
   Checkbox,
   TextField,
   InputAdornment,
+  Select,
+  MenuItem,
 } from '@mui/material';
 
 import { Link } from 'react-router-dom';
@@ -25,14 +27,22 @@ export default function Inscription() {
     lastname: '',
     email: '',
     password: '',
-    birthdate: '2000-10-25',
+    day: 1,
+    month: 1,
+    year: 1990,
   });
+
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
   };
 
   const register = () => {
+    const month = values.month < 10 ? '0' + values.month : values.month;
+    const day = values.day < 10 ? '0' + values.day : values.day;
+    const birthdate = values.year + '-' + month + '-' + day;
+    console.log(birthdate);
     const encrypt = require('../controlers/encrypt');
+    console.log(encrypt);
     axios({
       method: 'post',
       url: 'http://localhost:3000/api/user/signup',
@@ -41,7 +51,7 @@ export default function Inscription() {
         Accept: 'application/json',
         'Content-type': 'application/json',
       },
-      data: values,
+      data: { ...values, birthdate: birthdate },
     })
       .then((res) => console.log(res.data))
       .catch((error) => console.log(error));
@@ -131,13 +141,62 @@ export default function Inscription() {
         </Grid>
         <Grid textAlign="left">
           {' '}
-          <h6 style={{ color: 'rgba(0,0,0,0.6)' }}>
+          <h6 style={{ color: 'rgba(0,0,0,0.6)' ,paddingLeft:"12%"}}>
             {' '}
             doit conternir des chiffres , des lettres ou des symboles
           </h6>
         </Grid>
-        <Grid pt={3}>
-          <p> date </p>
+        <Grid container p={3}>
+          <Grid xs={2} ml={5} >
+            {' '}
+            <TextField 
+              InputProps={{ inputProps: { min: 0, max: 31 } }}
+              id="outlined-number"
+              label="jour"
+              type="number"
+              value={values.day}
+              onChange={handleChange('day')}
+              InputLabelProps={{
+                shrink: true,
+              }}
+            />
+          </Grid>
+          <Grid xs={4}>
+            {' '}
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={values.month}
+              label="Mois"
+              onChange={handleChange('month')}
+            >
+              <MenuItem value={1}>Janvier</MenuItem>
+              <MenuItem value={2}>Février</MenuItem>
+              <MenuItem value={3}>Mars</MenuItem>
+              <MenuItem value={4}>Avril </MenuItem>
+              <MenuItem value={5}>Mai</MenuItem>
+              <MenuItem value={6}>Juin</MenuItem>
+              <MenuItem value={7}>Juillet</MenuItem>
+              <MenuItem value={8}>Aout</MenuItem>
+              <MenuItem value={9}>Septembre</MenuItem>
+              <MenuItem value={10}>Octobre</MenuItem>
+              <MenuItem value={11}>Novembre</MenuItem>
+              <MenuItem value={12}>Décembre</MenuItem>
+            </Select>
+          </Grid>
+          <Grid xs={3} md={2}>
+            <TextField
+              InputProps={{ inputProps: { min: 1940, max: 2020 } }}
+              id="outlined-number"
+              label="Année"
+              type="number"
+              value={values.year}
+              onChange={handleChange('year')}
+              InputLabelProps={{
+                shrink: true,
+              }}
+            />
+          </Grid>
         </Grid>
 
         <Grid p={2}>
@@ -173,12 +232,12 @@ export default function Inscription() {
         </Grid>
         <Grid item md={12} xs={10} lg={11} textAlign="center">
           {' '}
-          <h6 style={{ marginRigt: '40px' }}>
+          <h5 style={{ marginRigt: '40px' }}>
             vous avez déja un compte ? <Link to="/login">connectez vous</Link>
-          </h6>{' '}
+          </h5>{' '}
         </Grid>
       </Grid>
-      <Grid item md={6}>
+      <Grid item md={6} className="image">
         <div className="contenant">
           <img src={Img} alt="" style={{ minWidth: '100%', height: 'auto' }} />
           <div className="texte_centrer">

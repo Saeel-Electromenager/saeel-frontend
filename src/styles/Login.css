@@ -27,3 +27,10 @@ p{
     font-size:18px;
     line-height: 24px;
 }
+
+@media only screen and (max-width: 900px) {
+    .image2
+    {
+      display: none;
+    }
+      }
