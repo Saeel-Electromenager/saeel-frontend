@@ -15,6 +15,7 @@ import Emailicon from '@mui/icons-material/Email';
 import Logo from '../assets/logo.png';
 import Img from '../assets/im.jpg';
 import axios from 'axios';
+import DialogConfirmCodeRegister from '../components/DialogConfirmeCodeRegister';
 
 import * as React from 'react';
 
@@ -32,6 +33,10 @@ export default function Inscription() {
     year: 1990,
   });
 
+  const [dialog, setDialog] = React.useState(false);
+
+  const [code, setCode] = React.useState(0);
+
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
   };
@@ -40,21 +45,23 @@ export default function Inscription() {
     const month = values.month < 10 ? '0' + values.month : values.month;
     const day = values.day < 10 ? '0' + values.day : values.day;
     const birthdate = values.year + '-' + month + '-' + day;
-    console.log(birthdate);
     const encrypt = require('../controlers/encrypt');
     console.log(encrypt);
-    axios({
-      method: 'post',
-      url: 'http://localhost:3000/api/user/signup',
-      headers: {
-        Authorization2: encrypt,
-        Accept: 'application/json',
-        'Content-type': 'application/json',
-      },
-      data: { ...values, birthdate: birthdate },
-    })
-      .then((res) => console.log(res.data))
-      .catch((error) => console.log(error));
+    setDialog(true);
+    // axios({
+    //   method: 'post',
+    //   url: 'http://localhost:3000/api/user/signup',
+    //   headers: {
+    //     Authorization2: encrypt,
+    //     Accept: 'application/json',
+    //     'Content-type': 'application/json',
+    //   },
+    //   data: { ...values, birthdate: birthdate },
+    // })
+    //   .then((res) => {
+    //     setDialog(true);
+    //   })
+    //   .catch((error) => console.log(error));
   };
 
   return (
@@ -141,15 +148,15 @@ export default function Inscription() {
         </Grid>
         <Grid textAlign="left">
           {' '}
-          <h6 style={{ color: 'rgba(0,0,0,0.6)' ,paddingLeft:"12%"}}>
+          <h6 style={{ color: 'rgba(0,0,0,0.6)', paddingLeft: '12%' }}>
             {' '}
             doit conternir des chiffres , des lettres ou des symboles
           </h6>
         </Grid>
         <Grid container p={3}>
-          <Grid xs={2} ml={5} >
+          <Grid xs={2} ml={5}>
             {' '}
-            <TextField 
+            <TextField
               InputProps={{ inputProps: { min: 0, max: 31 } }}
               id="outlined-number"
               label="jour"
@@ -251,6 +258,13 @@ export default function Inscription() {
           </p>
         </div>
       </Grid>
+
+      <DialogConfirmCodeRegister
+        values={values}
+        dialog={dialog}
+        setDialog={setDialog}
+        setCode={setCode}
+      />
     </Grid>
   );
 }

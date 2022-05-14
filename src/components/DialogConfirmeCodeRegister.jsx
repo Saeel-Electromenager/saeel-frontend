@@ -9,19 +9,22 @@ import {
   Button,
 } from '@mui/material';
 
-export default function DialogConfirmeCodeRegister({ values, setCode }) {
-  const [open, setOpen] = React.useState(true);
-
+export default function DialogConfirmeCodeRegister({
+  values,
+  dialog,
+  setDialog,
+}) {
   const handleClose = () => {
-    setOpen(false);
+    setDialog(false);
   };
   return (
-    <Dialog open={open} onClose={handleClose}>
+    <Dialog open={dialog}>
       <DialogTitle>Confimez votre inscription</DialogTitle>
       <DialogContent>
         <DialogContentText>
           {values.firstname + ' ' + values.lastname} Pour continuer votre
-          inscription vous devais confirmer votre email
+          inscription vous devais confirmer votre email <br />
+          {values.email}
         </DialogContentText>
         <TextField
           autoFocus
@@ -34,8 +37,8 @@ export default function DialogConfirmeCodeRegister({ values, setCode }) {
         />
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleClose}>Cancel</Button>
-        <Button>Subscribe</Button>
+        <Button onClick={handleClose}>Annuler</Button>
+        <Button>Confirmer</Button>
       </DialogActions>
     </Dialog>
   );
