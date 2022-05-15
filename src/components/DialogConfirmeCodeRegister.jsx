@@ -19,6 +19,7 @@ export default function DialogConfirmeCodeRegister({
   setSnackbarOpen,
 }) {
   const navigate = useNavigate();
+  const axiosConfig = require('../configurations/axiosConfig');
 
   const [code, setCode] = React.useState('');
   const handleClose = () => {
@@ -28,17 +29,13 @@ export default function DialogConfirmeCodeRegister({
     setCode(event.target.value);
   };
   const verifyCode = () => {
-    const headers = require('../configurations/axiosConfig');
-    const axiosConfig = {
-      method: 'POST',
-      url: 'http://localhost:3000/api/user/confirme-email-code',
-      headers: headers,
-      data: {
-        email: values.email,
-        code: code,
-      },
-    };
-    axios(axiosConfig)
+    axios(
+      axiosConfig(
+        'POST',
+        'http://localhost:3000/api/user/confirme-email-code',
+        { email: values.email, code: code }
+      )
+    )
       .then((data) => {
         console.log(data);
         setSnackbarOpen({ status: true, message: data.message });
