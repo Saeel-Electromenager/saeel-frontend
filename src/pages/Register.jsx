@@ -7,7 +7,9 @@ import {
   InputAdornment,
   Select,
   MenuItem,
+  Snackbar,
 } from '@mui/material';
+import MuiAlert from '@mui/material/Alert';
 
 import { Link } from 'react-router-dom';
 import LockIcon from '@mui/icons-material/Lock';
@@ -15,6 +17,7 @@ import Emailicon from '@mui/icons-material/Email';
 import Logo from '../assets/logo.png';
 import Img from '../assets/im.jpg';
 import axios from 'axios';
+import DialogConfirmCodeRegister from '../components/DialogConfirmeCodeRegister';
 
 import * as React from 'react';
 
@@ -32,6 +35,13 @@ export default function Inscription() {
     year: 1990,
   });
 
+  const [dialog, setDialog] = React.useState(false);
+  const [snackbarOpen, setSnackbarOpen] = React.useState({
+    status: false,
+    message: '',
+    type: '',
+  });
+
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
   };
@@ -40,9 +50,9 @@ export default function Inscription() {
     const month = values.month < 10 ? '0' + values.month : values.month;
     const day = values.day < 10 ? '0' + values.day : values.day;
     const birthdate = values.year + '-' + month + '-' + day;
-    console.log(birthdate);
-    const encrypt = require('../controlers/encrypt');
+    const encrypt = require('../configurations/encrypt');
     console.log(encrypt);
+
     axios({
       method: 'post',
       url: 'http://localhost:3000/api/user/signup',
@@ -53,9 +63,33 @@ export default function Inscription() {
       },
       data: { ...values, birthdate: birthdate },
     })
-      .then((res) => console.log(res.data))
-      .catch((error) => console.log(error));
+      .then((res) => {
+        setSnackbarOpen({
+          status: true,
+          message: res.data.message,
+          type: 'success',
+        });
+        setDialog(true);
+      })
+      .catch((error) =>
+        setSnackbarOpen({
+          status: true,
+          message: error.data.message,
+          type: 'error',
+        })
+      );
   };
+
+  const handleCloseSnackbar = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setSnackbarOpen({ ...snackbarOpen, status: false });
+  };
+
+  const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+  });
 
   return (
     <Grid container justifyContent="center">
@@ -141,15 +175,15 @@ export default function Inscription() {
         </Grid>
         <Grid textAlign="left">
           {' '}
-          <h6 style={{ color: 'rgba(0,0,0,0.6)' ,paddingLeft:"12%"}}>
+          <h6 style={{ color: 'rgba(0,0,0,0.6)', paddingLeft: '12%' }}>
             {' '}
             doit conternir des chiffres , des lettres ou des symboles
           </h6>
         </Grid>
         <Grid container p={3}>
-          <Grid xs={2} ml={5} >
+          <Grid item xs={2} ml={5}>
             {' '}
-            <TextField 
+            <TextField
               InputProps={{ inputProps: { min: 0, max: 31 } }}
               id="outlined-number"
               label="jour"
@@ -161,7 +195,7 @@ export default function Inscription() {
               }}
             />
           </Grid>
-          <Grid xs={4}>
+          <Grid item xs={4}>
             {' '}
             <Select
               labelId="demo-simple-select-label"
@@ -184,7 +218,7 @@ export default function Inscription() {
               <MenuItem value={12}>Décembre</MenuItem>
             </Select>
           </Grid>
-          <Grid xs={3} md={2}>
+          <Grid item xs={3} md={2}>
             <TextField
               InputProps={{ inputProps: { min: 1940, max: 2020 } }}
               id="outlined-number"
@@ -251,6 +285,26 @@ export default function Inscription() {
           </p>
         </div>
       </Grid>
+
+      <DialogConfirmCodeRegister
+        values={values}
+        dialog={dialog}
+        setDialog={setDialog}
+        setSnackbarOpen={setSnackbarOpen}
+      />
+      <Snackbar
+        open={snackbarOpen.status}
+        autoHideDuration={3000}
+        onClose={handleCloseSnackbar}
+      >
+        <Alert
+          onClose={handleCloseSnackbar}
+          severity={snackbarOpen.type}
+          sx={{ width: '100%' }}
+        >
+          {snackbarOpen.message}
+        </Alert>
+      </Snackbar>
     </Grid>
   );
 }

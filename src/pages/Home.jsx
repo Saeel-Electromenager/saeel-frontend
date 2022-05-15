@@ -3,40 +3,47 @@ import { Container, Grid } from '@mui/material';
 import Menu from '../components/Menu';
 import '../styles/Home.css';
 import Body from '../components/Body';
+import Footer from '../components/Footer';
+import Header from '../components/Header';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 export default function Home() {
-  const [activeClasse, updateActiveClasse] = React.useState('Home');
+  const [activeClasse, setActiveClasse] = React.useState('Home');
   return (
     <Container maxWidth="100%">
-      <div style={{ padding: 50 }} className="test"></div>
-      <Grid
-        container
-        direction="row"
-        display="flex"
-        wrap="nowrap"
-        justify="center"
-        alignItems="stretch"
-      >
+      <Header />
+      <Grid sx={{ display: 'flex', flexDirection: 'row' }}>
         {/* Menu */}
-        <Grid item display={window.innerWidth < 600 ? 'none' : 'block'}>
-          <Grid style={{ height: '100%', marginTop: 50 }}>
+        <Grid
+          sx={{
+            display: useMediaQuery('(min-width:650px)') ? 'block' : 'none',
+          }}
+        >
+          <Grid style={{ marginTop: 30 }}>
             <Menu
-              activeClaase={activeClasse}
-              updateActiveClasse={updateActiveClasse}
+              activeClasse={activeClasse}
+              setActiveClasse={setActiveClasse}
             />
           </Grid>
         </Grid>
 
-        <Grid
-          item
-          style={{
-            paddingTop: '10px',
-            borderRadius: '13px',
-            backgroundColor: '#fcfcfc',
-            width: '100%',
-          }}
-        >
-          <Body activeClasse={activeClasse} />
+        <Grid item xs={useMediaQuery('(min-width:650px)') ? 10 : 12}>
+          <Grid
+            sx={{
+              padding: useMediaQuery('(min-width:650px)')
+                ? '20px 50px 100px 50px'
+                : '10px 10px 40px 10px',
+              rowGap: '50px',
+              borderRadius: '13px',
+              backgroundColor: '#fcfcfc',
+            }}
+          >
+            <Body
+              activeClasse={activeClasse}
+              setActiveClasse={setActiveClasse}
+            />
+          </Grid>
+          <Footer />
         </Grid>
       </Grid>
     </Container>
