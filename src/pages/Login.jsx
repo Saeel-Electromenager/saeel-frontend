@@ -81,6 +81,7 @@ export default function Connexion() {
         if (res.data.status === 0) {
           setDialogValues({ ...dialogValues, open: true });
         }
+        navigate('/');
       })
       .catch((error) => {
         console.log(error);

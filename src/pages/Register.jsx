@@ -67,13 +67,14 @@ export default function Inscription() {
         });
         setDialog(true);
       })
-      .catch((error) =>
+      .catch((error) => {
+        console.log(error);
         setSnackbarOpen({
           status: true,
           message: error.data.message,
           type: 'error',
-        })
-      );
+        });
+      });
   };
 
   const handleCloseSnackbar = (event, reason) => {
@@ -301,7 +302,6 @@ export default function Inscription() {
           {snackbarOpen.message}
         </Alert>
       </Snackbar>
-      
     </Grid>
   );
 }
