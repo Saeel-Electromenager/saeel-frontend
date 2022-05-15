@@ -28,7 +28,7 @@ export default function DialogConfirmeCodeRegister({
     setCode(event.target.value);
   };
   const verifyCode = () => {
-    const headers = require('../configurations/headers');
+    const headers = require('../configurations/axiosConfig');
     const axiosConfig = {
       method: 'POST',
       url: 'http://localhost:3000/api/user/confirme-email-code',
@@ -55,7 +55,7 @@ export default function DialogConfirmeCodeRegister({
   };
   return (
     <Dialog open={dialog}>
-      <DialogTitle>Confimez votre inscription</DialogTitle>
+      <DialogTitle>Confimez votre Email</DialogTitle>
       <DialogContent>
         <DialogContentText>
           {values.firstname + ' ' + values.lastname} Pour continuer votre
