@@ -50,19 +50,14 @@ export default function Inscription() {
     const month = values.month < 10 ? '0' + values.month : values.month;
     const day = values.day < 10 ? '0' + values.day : values.day;
     const birthdate = values.year + '-' + month + '-' + day;
-    const encrypt = require('../configurations/encrypt');
-    console.log(encrypt);
+    const axiosConfig = require('../configurations/axiosConfig');
 
-    axios({
-      method: 'post',
-      url: 'http://localhost:3000/api/user/signup',
-      headers: {
-        Authorization2: encrypt,
-        Accept: 'application/json',
-        'Content-type': 'application/json',
-      },
-      data: { ...values, birthdate: birthdate },
-    })
+    axios(
+      axiosConfig('post', 'http://localhost:3000/api/user/signup', {
+        ...values,
+        birthdate: birthdate,
+      })
+    )
       .then((res) => {
         setSnackbarOpen({
           status: true,
