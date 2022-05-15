@@ -1,5 +1,5 @@
-import { Grid, Typography, Divider } from '@mui/material';
-import { width } from '@mui/system';
+import { Grid, Typography, Divider, Drawer } from '@mui/material';
+import { Box, width } from '@mui/system';
 import * as React from 'react';
 import logosaeel from '../assets/Logosaeel.png';
 import SAEEL from '../assets/SAEEL.jpg';
@@ -7,8 +7,11 @@ import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNone
 import Stack from '@mui/material/Stack';
 import IconButton from '@mui/material/IconButton';
 import DehazeIcon from '@mui/icons-material/Dehaze';
+import { useState } from 'react';
+import { MuiBox } from './MuiBox';
 
 export default function F() {
+  const [IsDrawerOpen, setIsDrawerOpen] = useState(false);
   return (
     <Grid>
       <Stack pb={4} pt={3} direction="row" spacing={1}>
@@ -32,10 +35,9 @@ export default function F() {
               sx={{ height: 28, color: '#CACCD9', borderRightWidth: '3px' }}
               orientation="vertical"
             />
-
-            <IconButton size="large">
-              <DehazeIcon style={{ color: '#CACCD9' }} fontSize="inherit" />
-            </IconButton>
+            <>
+              <MuiBox />
+            </>
           </Stack>
         </Grid>
       </Stack>
