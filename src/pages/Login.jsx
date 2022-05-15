@@ -12,6 +12,7 @@ import {
 import MuiAlert from '@mui/material/Alert';
 
 import { Link } from 'react-router-dom';
+import Footer from '../components/Footer';
 
 import loginIcon from '../assets/img_bac.jpg';
 import '../styles/Login.css';
@@ -208,6 +209,7 @@ export default function Connexion() {
           {snackbarOpen.message}
         </Alert>
       </Snackbar>
+      <Footer />
     </Container>
   );
 }

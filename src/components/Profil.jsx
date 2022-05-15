@@ -8,10 +8,12 @@ import {
   IconButton,
   Typography,
 } from '@mui/material';
+import Footer from '../components/Footer';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 import Avatar from '../assets/zemoor.jpg';
 import '../styles/Profil.css';
+import Etat from './Etat';
 
 export default function Aboutme() {
   const info = {
@@ -53,27 +55,27 @@ export default function Aboutme() {
           <Grid item md={9} lg={10} sm={8} xs={7}>
             <Grid container style={{ justifyContent: 'space-between' }}>
               {' '}
-              <h2> Eric zemmor </h2>{' '}
-              <IconButton aria-label="more">
-                <MoreVertIcon />
-              </IconButton>
-            </Grid>
-            <Grid container style={{ justifyContent: 'space-between' }}>
-              {' '}
-            
-              <p style={{ color: 'rgb(0,0,0,0.5)' }}>utilisateur</p>
-              <Button  variant="contained"> modifier profil</Button>
+              <h2> Eric zemmor </h2>
+              <Etat />
             </Grid>
 
+            <Grid container style={{ justifyContent: 'space-between' }}>
+              {' '}
+              <p style={{ color: 'rgb(0,0,0,0.5)' }}>utilisateur</p>
+              <Button variant="contained"> modifier profil</Button>
+            </Grid>
           </Grid>
         </Grid>
 
         <Grid
           item
-          
           ml={4}
           p={2}
-          style={{ backgroundColor: 'white', borderRadius: '18px',width:'94.5%'}}
+          style={{
+            backgroundColor: 'white',
+            borderRadius: '18px',
+            width: '94.5%',
+          }}
         >
           <h2>A propos</h2>
           <p> @Zemour_06</p>
@@ -92,11 +94,11 @@ export default function Aboutme() {
           p={2}
           style={{ backgroundColor: 'white', borderRadius: '18px' }}
         >
-          <Grid xs={12} pl={1} textAlign="left">
+          <Grid item xs={12} pl={1} textAlign="left">
             {' '}
             <h2>mes adresse</h2>
           </Grid>
-          <Grid md={4} xs={8} sm={6} lg={3} textAlign="left" p={3}>
+          <Grid item md={4} xs={8} sm={6} lg={3} textAlign="left" p={3}>
             <Card sx={{ minWidth: 215 }}>
               <CardContent>
                 <Typography sx={{ fontSize: 14 }}>{info.wilaya}</Typography>
@@ -112,7 +114,7 @@ export default function Aboutme() {
             </Card>
           </Grid>
 
-          <Grid md={4} xs={8} sm={6} lg={3} textAlign="left" p={3}>
+          <Grid item md={4} xs={8} sm={6} lg={3} textAlign="left" p={3}>
             <Card sx={{ minWidth: 215 }}>
               <CardContent>
                 <Typography sx={{ fontSize: 14 }}>{info.wilaya}</Typography>
@@ -127,7 +129,7 @@ export default function Aboutme() {
               </CardContent>
             </Card>
           </Grid>
-          <Grid md={4} xs={8} sm={6} lg={3} textAlign="left" p={3}>
+          <Grid item md={4} xs={8} sm={6} lg={3} textAlign="left" p={3}>
             <Card sx={{ minWidth: 215 }}>
               <CardContent>
                 <Typography sx={{ fontSize: 14 }}>{info.wilaya}</Typography>
@@ -142,13 +144,14 @@ export default function Aboutme() {
               </CardContent>
             </Card>
           </Grid>
-          <Grid md={4} xs={8} sm={6} lg={3} m="auto" p={3}>
+          <Grid item md={4} xs={8} sm={6} lg={3} m="auto" p={3}>
             <Card sx={{ minWidth: 215 }}>
               <Button>ajouter une adresse </Button>
             </Card>
           </Grid>
         </Grid>
       </Grid>
+      <Footer></Footer>
     </Container>
   );
 }

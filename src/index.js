@@ -8,7 +8,6 @@ import Home from './pages/Home';
 import Profil from './components/Profil';
 import AddProduct from './components/AddProduct';
 
-
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>

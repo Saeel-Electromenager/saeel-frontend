@@ -14,6 +14,7 @@ import MuiAlert from '@mui/material/Alert';
 import { Link } from 'react-router-dom';
 import LockIcon from '@mui/icons-material/Lock';
 import Emailicon from '@mui/icons-material/Email';
+
 import Logo from '../assets/logo.png';
 import Img from '../assets/im.jpg';
 import axios from 'axios';
@@ -305,6 +306,7 @@ export default function Inscription() {
           {snackbarOpen.message}
         </Alert>
       </Snackbar>
+      
     </Grid>
   );
 }
