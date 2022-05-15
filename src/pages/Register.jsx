@@ -7,7 +7,9 @@ import {
   InputAdornment,
   Select,
   MenuItem,
+  Snackbar,
 } from '@mui/material';
+import MuiAlert from '@mui/material/Alert';
 
 import { Link } from 'react-router-dom';
 import LockIcon from '@mui/icons-material/Lock';
@@ -34,8 +36,11 @@ export default function Inscription() {
   });
 
   const [dialog, setDialog] = React.useState(false);
-
-  const [code, setCode] = React.useState(0);
+  const [snackbarOpen, setSnackbarOpen] = React.useState({
+    status: false,
+    message: '',
+    type: '',
+  });
 
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
@@ -45,24 +50,46 @@ export default function Inscription() {
     const month = values.month < 10 ? '0' + values.month : values.month;
     const day = values.day < 10 ? '0' + values.day : values.day;
     const birthdate = values.year + '-' + month + '-' + day;
-    const encrypt = require('../controlers/encrypt');
+    const encrypt = require('../configurations/encrypt');
     console.log(encrypt);
-    setDialog(true);
-    // axios({
-    //   method: 'post',
-    //   url: 'http://localhost:3000/api/user/signup',
-    //   headers: {
-    //     Authorization2: encrypt,
-    //     Accept: 'application/json',
-    //     'Content-type': 'application/json',
-    //   },
-    //   data: { ...values, birthdate: birthdate },
-    // })
-    //   .then((res) => {
-    //     setDialog(true);
-    //   })
-    //   .catch((error) => console.log(error));
+
+    axios({
+      method: 'post',
+      url: 'http://localhost:3000/api/user/signup',
+      headers: {
+        Authorization2: encrypt,
+        Accept: 'application/json',
+        'Content-type': 'application/json',
+      },
+      data: { ...values, birthdate: birthdate },
+    })
+      .then((res) => {
+        setSnackbarOpen({
+          status: true,
+          message: res.data.message,
+          type: 'success',
+        });
+        setDialog(true);
+      })
+      .catch((error) =>
+        setSnackbarOpen({
+          status: true,
+          message: error.data.message,
+          type: 'error',
+        })
+      );
   };
+
+  const handleCloseSnackbar = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setSnackbarOpen({ ...snackbarOpen, status: false });
+  };
+
+  const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+  });
 
   return (
     <Grid container justifyContent="center">
@@ -154,7 +181,7 @@ export default function Inscription() {
           </h6>
         </Grid>
         <Grid container p={3}>
-          <Grid xs={2} ml={5}>
+          <Grid item xs={2} ml={5}>
             {' '}
             <TextField
               InputProps={{ inputProps: { min: 0, max: 31 } }}
@@ -168,7 +195,7 @@ export default function Inscription() {
               }}
             />
           </Grid>
-          <Grid xs={4}>
+          <Grid item xs={4}>
             {' '}
             <Select
               labelId="demo-simple-select-label"
@@ -191,7 +218,7 @@ export default function Inscription() {
               <MenuItem value={12}>Décembre</MenuItem>
             </Select>
           </Grid>
-          <Grid xs={3} md={2}>
+          <Grid item xs={3} md={2}>
             <TextField
               InputProps={{ inputProps: { min: 1940, max: 2020 } }}
               id="outlined-number"
@@ -263,8 +290,21 @@ export default function Inscription() {
         values={values}
         dialog={dialog}
         setDialog={setDialog}
-        setCode={setCode}
+        setSnackbarOpen={setSnackbarOpen}
       />
+      <Snackbar
+        open={snackbarOpen.status}
+        autoHideDuration={3000}
+        onClose={handleCloseSnackbar}
+      >
+        <Alert
+          onClose={handleCloseSnackbar}
+          severity={snackbarOpen.type}
+          sx={{ width: '100%' }}
+        >
+          {snackbarOpen.message}
+        </Alert>
+      </Snackbar>
     </Grid>
   );
 }

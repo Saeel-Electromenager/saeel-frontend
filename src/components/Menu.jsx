@@ -12,40 +12,40 @@ import { Link } from 'react-router-dom';
 import LoginIcon from '@mui/icons-material/Login';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
-export default function Menu({ activeClaase, updateActiveClasse }) {
+export default function Menu({ activeClasse, setActiveClasse }) {
   return (
     <Stack className="container" direction="column" spacing={3}>
       <Button
-        onClick={() => updateActiveClasse('Home')}
-        className={activeClaase === 'Home' ? 'active' : ''}
+        onClick={() => setActiveClasse('Home')}
+        className={activeClasse === 'Home' ? 'active' : ''}
         startIcon={<HomeIcon className="svg_icons" />}
       >
         {useMediaQuery('(min-width:1150px)') ? 'Home' : ''}
       </Button>
       <Button
-        onClick={() => updateActiveClasse('Categories')}
-        className={activeClaase === 'Categories' ? 'active' : ''}
+        onClick={() => setActiveClasse('Categories')}
+        className={activeClasse === 'Categories' ? 'active' : ''}
         startIcon={<MenuIcon className="svg_icons" />}
       >
         {useMediaQuery('(min-width:1150px)') ? 'Catalogue' : ''}
       </Button>
       <Button
-        onClick={() => updateActiveClasse('TopSaeel')}
-        className={activeClaase === 'TopSaeel' ? 'active' : ''}
+        onClick={() => setActiveClasse('TopSaeel')}
+        className={activeClasse === 'TopSaeel' ? 'active' : ''}
         startIcon={<StarOutlineOutlinedIcon className="svg_icons" />}
       >
         {useMediaQuery('(min-width:1150px)') ? 'TOP Saeel' : ''}
       </Button>
       <Button
-        onClick={() => updateActiveClasse('About')}
-        className={activeClaase === 'About' ? 'active' : ''}
+        onClick={() => setActiveClasse('About')}
+        className={activeClasse === 'About' ? 'active' : ''}
         startIcon={<InfoOutlinedIcon className="svg_icons" />}
       >
         {useMediaQuery('(min-width:1150px)') ? 'À Propos' : ''}
       </Button>
       <Button
-        onClick={() => updateActiveClasse('FAQ')}
-        className={activeClaase === 'FAQ' ? 'active' : ''}
+        onClick={() => setActiveClasse('FAQ')}
+        className={activeClasse === 'FAQ' ? 'active' : ''}
         startIcon={<FaqIcon className="svg_icons" />}
       >
         {useMediaQuery('(min-width:1150px)') ? 'FAQ' : ''}
@@ -56,7 +56,7 @@ export default function Menu({ activeClaase, updateActiveClasse }) {
           {useMediaQuery('(min-width:1150px)') ? (
             <Button
               className="button-connection"
-              endIcon={<LoginIcon className="svg_icons" />}
+              endIcon={<LoginIcon className="svg_icons_connection" />}
             >
               Connexion
             </Button>

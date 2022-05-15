@@ -1,0 +1,45 @@
+.footer-title {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 17px;
+  line-height: 26px;
+  color: #fcfcfc;
+}
+
+li {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 21px;
+  color: #fcfcfc;
+}
+
+.footer-number-white {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 21px;
+  color: #fcfcfc;
+}
+
+.footer-number-red {
+  color: #fa533c;
+}
+
+.footer-copyright {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 21px;
+  text-align: center;
+  color: #fcfcfc;
+  margin: auto;
+}
+
+.footer-copyright strong{
+  font-weight: 700;
+}

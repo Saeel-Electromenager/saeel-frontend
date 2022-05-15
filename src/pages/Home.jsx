@@ -2,52 +2,47 @@ import * as React from 'react';
 import { Container, Grid } from '@mui/material';
 import Menu from '../components/Menu';
 import '../styles/Home.css';
-import Search from '../components/Search';
-import SwiperHome from '../components/SwiperHome';
-import ArgumentHome from '../components/ArgumentHome';
-import TopRatedHome from '../components/TopRatedHome';
-import NewProductHome from '../components/NewProductHome';
-import CategoriesHome from '../components/CategoriesHome';
+import Body from '../components/Body';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 export default function Home() {
+  const [activeClasse, setActiveClasse] = React.useState('Home');
   return (
-    <Container maxWidth="xl">
+    <Container maxWidth="100%">
       <Header />
-      <Grid
-        container
-        spacing={3}
-        direction="row"
-        justify="center"
-        alignItems="stretch"
-      >
+      <Grid sx={{ display: 'flex', flexDirection: 'row' }}>
         {/* Menu */}
-        <Grid item xs={2}>
-          <Grid style={{ height: '100%', marginTop: 30 }}>
-            <Menu />
+        <Grid
+          sx={{
+            display: useMediaQuery('(min-width:650px)') ? 'block' : 'none',
+          }}
+        >
+          <Grid style={{ marginTop: 30 }}>
+            <Menu
+              activeClasse={activeClasse}
+              setActiveClasse={setActiveClasse}
+            />
           </Grid>
         </Grid>
 
-        <Grid item xs={10} style={{}}>
+        <Grid item xs={useMediaQuery('(min-width:650px)') ? 10 : 12}>
           <Grid
-            container
-            spacing={3}
             sx={{
-              padding: '20px 50px 100px 50px',
+              padding: useMediaQuery('(min-width:650px)')
+                ? '20px 50px 100px 50px'
+                : '10px 10px 40px 10px',
               rowGap: '50px',
               borderRadius: '13px',
               backgroundColor: '#fcfcfc',
             }}
           >
-            <Search />
-            <SwiperHome />
-            <ArgumentHome />
-            <TopRatedHome />
-            <NewProductHome />
-            <CategoriesHome />
+            <Body
+              activeClasse={activeClasse}
+              setActiveClasse={setActiveClasse}
+            />
           </Grid>
-
           <Footer />
         </Grid>
       </Grid>

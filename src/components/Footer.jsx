@@ -1,17 +1,20 @@
-import { Grid, Typography, Divider } from '@mui/material';
-import { width } from '@mui/system';
+import { Grid } from '@mui/material';
 import * as React from 'react';
 import logosaeel from '../assets/Logosaeel.png';
+import '../styles/footer.css';
 
 export default function F() {
   return (
-    <Grid style={{ marginLeft: '-24px', marginTop: '50px' }}>
+    <Grid style={{ marginTop: '50px' }}>
       <Grid
         container
-        style={{ background: 'black', borderRadius: '10px 10px 0px 0px' }}
+        style={{
+          backgroundColor: '#1C1C1C',
+          borderRadius: '10px 10px 0px 0px',
+        }}
       >
-        <Grid item md={3} p={2} style={{ color: 'white' }}>
-          <h3 style={{ color: 'white' }}>Besoin d'aide ?</h3>
+        <Grid item md={3} p={2}>
+          <h3 className="footer-title">Besoin d'aide ?</h3>
           <Grid pl={5} pt={2}>
             <ul>
               <li>Contactez-nous</li>
@@ -19,17 +22,17 @@ export default function F() {
               <li>Nos conditions de livraison</li>
             </ul>
           </Grid>
-          <Grid pt={2}>
-            Contactez le <span style={{ color: 'red' }}> 0541 49 43 61</span> ou
-            le
-            <span style={{ color: 'red' }}>
+          <Grid className="footer-number-white" pt={2}>
+            Contactez le{' '}
+            <span className="footer-number-red"> 0541 49 43 61</span> ou le
+            <span className="footer-number-red">
               {' '}
               00 213 541 49 43 61 depuis n’importe où
             </span>
           </Grid>
         </Grid>
-        <Grid item md={3} p={2} style={{ color: 'white' }}>
-          <h3 style={{ color: 'white' }}>Informations sur saeel</h3>
+        <Grid item md={3} p={2}>
+          <h3 className="footer-title">Informations sur saeel</h3>
           <Grid pl={5} pt={2}>
             <ul>
               <li>Qui sommes nous</li>
@@ -42,8 +45,8 @@ export default function F() {
             </ul>
           </Grid>
         </Grid>
-        <Grid item md={3} p={2} style={{ color: 'white' }}>
-          <h3 style={{ color: 'white' }}>Parcourir les categories</h3>
+        <Grid item md={3} p={2}>
+          <h3 className="footer-title">Parcourir les categories</h3>
           <Grid pl={5} pt={2}>
             <ul>
               <li>Cuisinière à gaz</li>
@@ -58,8 +61,8 @@ export default function F() {
             </ul>
           </Grid>
         </Grid>
-        <Grid item md={3} sm={6} p={2} style={{ color: 'white' }}>
-          <h3 style={{ color: 'white' }}>Rejoignez nous</h3>
+        <Grid item md={3} sm={6} p={2}>
+          <h3 className="footer-title">Rejoignez nous</h3>
           <Grid pl={5} pt={2}>
             <ul>
               <li>Nos offres d'emploi </li>
@@ -78,9 +81,8 @@ export default function F() {
         textAlign="center"
         style={{ background: '#3F3F3F' }}
       >
-        <h4 style={{ color: 'gray', margin: 'auto', opacity: '1' }}>
-          Copyright © 2022,<span style={{ color: 'white' }}> Saeel.</span> All
-          Rights Reserved
+        <h4 className="footer-copyright">
+          Copyright © 2022,<strong> Saeel.</strong> All Rights Reserved
         </h4>
       </Grid>
     </Grid>
