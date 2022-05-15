@@ -14,10 +14,6 @@ export default function Body({ activeClasse }) {
         return (
           <Grid
             sx={{
-              padding:
-                window.innerWidth < 500
-                  ? '20px 10px 50px 10px'
-                  : '20px 50px 50px 50px',
               gap: '60px',
               display: 'flex',
               flexDirection: 'column',
