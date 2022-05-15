@@ -8,8 +8,14 @@ import {
   InputAdornment,
   Typography,
   Snackbar,
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  DialogContentText,
+  DialogActions,
 } from '@mui/material';
 import MuiAlert from '@mui/material/Alert';
+import { useNavigate } from 'react-router-dom';
 
 import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
@@ -22,11 +28,25 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import EmailIcon from '@mui/icons-material/Email';
 import LockIcon from '@mui/icons-material/Lock';
 import axios from 'axios';
+
+const axiosConfig = require('../configurations/axiosConfig');
+
 export default function Connexion() {
+  const navigate = useNavigate();
   const [values, setValues] = React.useState({
     login: '',
     password: '',
   });
+  const [dialogValues, setDialogValues] = React.useState({
+    code: '',
+    open: false,
+  });
+  const handleClose = () => {
+    setDialogValues({ ...dialogValues, open: false });
+  };
+  const handleCode = (event) => {
+    setDialogValues({ ...dialogValues, code: event.target.value });
+  };
 
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
@@ -47,23 +67,74 @@ export default function Connexion() {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
   });
 
-  const login = () => {
-    const encrypt = require('../configurations/encrypt');
-    axios({
-      method: 'post',
-      url: 'http://localhost:3000/api/user/login',
-      headers: {
-        Authorization2: encrypt,
-        Accept: 'application/json',
-        'Content-type': 'application/json',
-      },
-      data: values,
-    })
+  const login = (event) => {
+    event.preventDefault();
+    axios(axiosConfig('POST', 'http://localhost:3000/api/user/login', values))
+      .then((res) => {
+        localStorage.setItem('token', res.data.idUser + ' ' + res.data.token);
+        setSnackbarOpen({
+          status: true,
+          message: 'Heureux de vous revoir ' + res.data.firstname + ' 💙',
+          type: 'success',
+        });
+        console.log(res.data);
+        if (res.data.status === 0) {
+          setDialogValues({ ...dialogValues, open: true });
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        setSnackbarOpen({
+          status: true,
+          message: error.response.data.error || 'Erreur inattendus 😅',
+          type: 'error',
+        });
+      });
+  };
+  const verifyCode = () => {
+    axios(
+      axiosConfig(
+        'POST',
+        'http://localhost:3000/api/user/confirme-email-code',
+        {
+          login: values.login,
+          code: dialogValues.code,
+        }
+      )
+    )
       .then((res) => {
         console.log(res);
         setSnackbarOpen({
           status: true,
-          message: 'Heureux de vous revoir ' + res.data.firstname + ' 💙',
+          message: res.data.message,
+          type: 'success',
+        });
+        setDialogValues({ open: false, code: '' });
+        setTimeout(navigate('/'), 5000);
+      })
+      .catch((error) => {
+        setSnackbarOpen({
+          status: true,
+          message: error.response.data.error,
+          type: 'error',
+        });
+        console.log(error.response.data.error);
+      });
+  };
+  const resentCode = () => {
+    axios(
+      axiosConfig(
+        'POST',
+        'http://localhost:3000/api/user/confirme-email-get-code',
+        values
+      )
+    )
+      .then((res) => {
+        console.log(res);
+        setDialogValues({ ...dialogValues, code: '' });
+        setSnackbarOpen({
+          status: true,
+          message: res.data.message,
           type: 'success',
         });
       })
@@ -73,24 +144,23 @@ export default function Connexion() {
           message: error.response.data.error,
           type: 'error',
         });
+        console.log(error.response.data.error);
       });
   };
 
   return (
     <Container>
       <nav style={{ width: '100%', height: '100px' }}>
-        {' '}
         <img src={Logo} alt="logo" className="logo" />
       </nav>
       <Grid container spacing={2} justifyContent="center">
         <Grid item md={7} xs={12} textAlign="center" className="image2">
-          {' '}
           <img
             className="icon-img"
             src={loginIcon}
             style={{ width: '500PX', height: '460px' }}
             alt="icon"
-          />{' '}
+          />
         </Grid>
         <Grid item md={5} xs={11} paddingLeft="20PX">
           <h1>Re Bonjour !</h1>
@@ -99,7 +169,7 @@ export default function Connexion() {
             adresse email et votre mot de passe..
           </p>
 
-          <Grid>
+          <Grid onSubmit={login} component="form">
             <Grid
               item
               md={12}
@@ -107,24 +177,22 @@ export default function Connexion() {
               lg={11}
               style={{ paddingTop: '26px', paddingBottom: '26px' }}
             >
-              {' '}
               <TextField
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
-                      {' '}
                       <EmailIcon />
                     </InputAdornment>
                   ),
                 }}
                 type="email"
                 id="outlined-basic"
-                label="Email"
+                label="Email ou nom d'utilisateur"
                 variant="outlined"
-                value={values.weight}
+                value={values.login}
                 onChange={handleChange('login')}
                 style={{ width: '100%' }}
-              />{' '}
+              />
             </Grid>
             <Grid
               item
@@ -133,12 +201,10 @@ export default function Connexion() {
               lg={11}
               style={{ paddingBottom: '20px' }}
             >
-              {' '}
               <TextField
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="start">
-                      {' '}
                       <LockIcon />
                     </InputAdornment>
                   ),
@@ -147,13 +213,12 @@ export default function Connexion() {
                 id="o"
                 label="password"
                 variant="outlined"
-                value={values.weight}
+                value={values.password}
                 onChange={handleChange('password')}
                 style={{ width: '100%' }}
-              />{' '}
+              />
             </Grid>
             <Grid>
-              {' '}
               <FormControlLabel
                 value="end"
                 control={<Checkbox />}
@@ -169,11 +234,10 @@ export default function Connexion() {
               textAlign="center"
               style={{ paddingBottom: '16px' }}
             >
-              {' '}
               <Button
+                type="submit"
                 variant="contained"
                 style={{ background: '#5C4EBD' }}
-                onClick={login}
               >
                 Se Connecter
               </Button>
@@ -191,8 +255,8 @@ export default function Connexion() {
               }}
             >
               vous n'etes pas encore inscrit ?{' '}
-              <Link to="/register">Connexion</Link>
-            </Typography>{' '}
+              <Link to="/register">Rejoignez-nous!</Link>
+            </Typography>
           </Grid>
         </Grid>
       </Grid>
@@ -210,6 +274,33 @@ export default function Connexion() {
         </Alert>
       </Snackbar>
       <Footer />
+
+      <Dialog open={dialogValues.open}>
+        <DialogTitle>Confimez votre Email</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            {values.login} Pour continuer vous devez confirmer votre email{' '}
+            <br />
+            {values.email}
+          </DialogContentText>
+          <TextField
+            autoFocus
+            margin="dense"
+            id="code"
+            label="Code confirmation"
+            type="number"
+            fullWidth
+            variant="standard"
+            value={dialogValues.code}
+            onChange={handleCode}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={resentCode}>Renvoyé le code</Button>
+          <Button onClick={handleClose}>Annuler</Button>
+          <Button onClick={verifyCode}>Confirmer</Button>
+        </DialogActions>
+      </Dialog>
     </Container>
   );
 }
