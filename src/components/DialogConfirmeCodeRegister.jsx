@@ -4,8 +4,8 @@ import {
   DialogContent,
   DialogTitle,
   DialogContentText,
-  TextField,
   DialogActions,
+  TextField,
   Button,
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
@@ -33,7 +33,7 @@ export default function DialogConfirmeCodeRegister({
       axiosConfig(
         'POST',
         'http://localhost:3000/api/user/confirme-email-code',
-        { email: values.email, code: code }
+        { login: values.email, code: code }
       )
     )
       .then((data) => {

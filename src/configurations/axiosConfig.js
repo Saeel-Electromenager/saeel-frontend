@@ -17,6 +17,5 @@ module.exports = function axiosConfig(method, url, body) {
   };
   if (!method.toLowerCase() !== 'get' && !!body)
     axiosConfig = { ...axiosConfig, data: body };
-  console.log(axiosConfig);
   return axiosConfig;
 };

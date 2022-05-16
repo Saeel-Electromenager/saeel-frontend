@@ -77,11 +77,9 @@ export default function Connexion() {
           message: 'Heureux de vous revoir ' + res.data.firstname + ' 💙',
           type: 'success',
         });
-        console.log(res.data);
         if (res.data.status === 0) {
           setDialogValues({ ...dialogValues, open: true });
-        }
-        navigate('/');
+        } else navigate('/');
       })
       .catch((error) => {
         console.log(error);
@@ -127,7 +125,9 @@ export default function Connexion() {
       axiosConfig(
         'POST',
         'http://localhost:3000/api/user/confirme-email-get-code',
-        values
+        {
+          login: values.login,
+        }
       )
     )
       .then((res) => {
@@ -140,12 +140,12 @@ export default function Connexion() {
         });
       })
       .catch((error) => {
+        console.log(error);
         setSnackbarOpen({
           status: true,
           message: error.response.data.error,
           type: 'error',
         });
-        console.log(error.response.data.error);
       });
   };
 
