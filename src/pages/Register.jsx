@@ -54,7 +54,7 @@ export default function Inscription() {
     const axiosConfig = require('../configurations/axiosConfig');
 
     axios(
-      axiosConfig('post', 'http://localhost:3000/api/user/signup', {
+      axiosConfig('post', '/api/user/signup', {
         ...values,
         birthdate: birthdate,
       })
@@ -92,15 +92,12 @@ export default function Inscription() {
     <Grid container justifyContent="center">
       <Grid item md={6} textAlign="center">
         <nav style={{ width: '100%', textAlign: 'left' }}>
-          {' '}
           <img src={Logo} href="ezzz" alt="" className="logo" />
         </nav>
         <Grid textAlign="center">
-          {' '}
           <h1> Inscription</h1>
         </Grid>
         <Grid textAlign="center" p={3}>
-          {' '}
           <TextField
             id="nom"
             label="nom"
@@ -116,10 +113,9 @@ export default function Inscription() {
             value={values.weight}
             onChange={handleChange('firstname')}
             style={{ width: '40%' }}
-          />{' '}
+          />
         </Grid>
         <Grid pb={3}>
-          {' '}
           <TextField
             id="utilisateur"
             label="nom d'utilisateur"
@@ -131,12 +127,10 @@ export default function Inscription() {
         </Grid>
 
         <Grid pb={3}>
-          {' '}
           <TextField
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
-                  {' '}
                   <Emailicon />
                 </InputAdornment>
               ),
@@ -148,10 +142,9 @@ export default function Inscription() {
             value={values.weight}
             onChange={handleChange('email')}
             style={{ width: '80%' }}
-          />{' '}
+          />
         </Grid>
         <Grid>
-          {' '}
           <TextField
             id="outlined-password-input"
             label="mot de passe"
@@ -163,7 +156,6 @@ export default function Inscription() {
             InputProps={{
               endAdornment: (
                 <InputAdornment position="start">
-                  {' '}
                   <LockIcon />
                 </InputAdornment>
               ),
@@ -171,15 +163,12 @@ export default function Inscription() {
           />
         </Grid>
         <Grid textAlign="left">
-          {' '}
           <h6 style={{ color: 'rgba(0,0,0,0.6)', paddingLeft: '12%' }}>
-            {' '}
             doit conternir des chiffres , des lettres ou des symboles
           </h6>
         </Grid>
         <Grid container p={3}>
           <Grid item xs={2} ml={5}>
-            {' '}
             <TextField
               InputProps={{ inputProps: { min: 0, max: 31 } }}
               id="outlined-number"
@@ -193,7 +182,6 @@ export default function Inscription() {
             />
           </Grid>
           <Grid item xs={4}>
-            {' '}
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
@@ -217,7 +205,9 @@ export default function Inscription() {
           </Grid>
           <Grid item xs={3} md={2}>
             <TextField
-              InputProps={{ inputProps: { min: 1940, max: 2020 } }}
+              InputProps={{
+                inputProps: { min: 1940, max: new Date().getFullYear() - 13 },
+              }}
               id="outlined-number"
               label="Année"
               type="number"
@@ -231,13 +221,12 @@ export default function Inscription() {
         </Grid>
 
         <Grid p={2}>
-          {' '}
           <FormControlLabel
             value="end"
             control={<Checkbox />}
             label={
               <div>
-                <span> j'ai lu et j'accepte </span>{' '}
+                <span> j'ai lu et j'accepte </span>
                 <a href="/"> les conditions d'utilisation </a>
               </div>
             }
@@ -252,7 +241,6 @@ export default function Inscription() {
           textAlign="center"
           style={{ paddingBottom: '16px' }}
         >
-          {' '}
           <Button
             onClick={register}
             variant="contained"
@@ -262,10 +250,9 @@ export default function Inscription() {
           </Button>
         </Grid>
         <Grid item md={12} xs={10} lg={11} textAlign="center">
-          {' '}
           <h5 style={{ marginRigt: '40px' }}>
             vous avez déja un compte ? <Link to="/login">connectez vous</Link>
-          </h5>{' '}
+          </h5>
         </Grid>
       </Grid>
       <Grid item md={6} className="image">

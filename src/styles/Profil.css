@@ -6,7 +6,6 @@ h2{padding: 2px;
     font-family: 'Poppins';
     font-style: normal;
     font-weight: 700;
-  
     line-height: 60px;
 }
 
@@ -14,6 +13,5 @@ h2{padding: 2px;
     text-align: center;
     vertical-align: middle;
     width: 170px;
-    height: 150px;
-  
-  }
+    height: 170px;
+}
