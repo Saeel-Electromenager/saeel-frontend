@@ -30,11 +30,10 @@ export default function DialogConfirmeCodeRegister({
   };
   const verifyCode = () => {
     axios(
-      axiosConfig(
-        'POST',
-        'http://localhost:3000/api/user/confirme-email-code',
-        { login: values.email, code: code }
-      )
+      axiosConfig('POST', '/api/user/confirme-email-code', {
+        login: values.email,
+        code: code,
+      })
     )
       .then((data) => {
         console.log(data);
