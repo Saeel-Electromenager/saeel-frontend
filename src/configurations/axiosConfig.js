@@ -2,6 +2,8 @@ module.exports = function axiosConfig(method, url, body) {
   const encrypt = require('./encrypt');
   const token = localStorage.getItem('token');
 
+  url = `http://localhost:3000${url}`;
+
   let headers = {
     Authorization2: encrypt,
     Accept: 'application/json',
@@ -9,6 +11,8 @@ module.exports = function axiosConfig(method, url, body) {
   };
 
   if (token) headers = { ...headers, Authorization: token };
+
+  // mettre le localhost automatiquement
 
   let axiosConfig = {
     method: method,

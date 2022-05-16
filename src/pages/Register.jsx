@@ -54,7 +54,7 @@ export default function Inscription() {
     const axiosConfig = require('../configurations/axiosConfig');
 
     axios(
-      axiosConfig('post', 'http://localhost:3000/api/user/signup', {
+      axiosConfig('post', '/api/user/signup', {
         ...values,
         birthdate: birthdate,
       })

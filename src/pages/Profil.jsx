@@ -10,7 +10,6 @@ import {
   Dialog,
   DialogContent,
   DialogTitle,
-  DialogContentText,
   DialogActions,
   TextField,
   MenuItem,
@@ -20,24 +19,19 @@ import Footer from '../components/Footer';
 import { useParams } from 'react-router-dom';
 
 import Header from '../components/Header';
-
-import Avatar from '../assets/zemoor.jpg';
 import '../styles/Profil.css';
-import Etat from './Etat';
+import Etat from '../components/Etat';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 
 const axiosConfig = require('../configurations/axiosConfig');
 
 export default function Profil() {
-  const navigate = useNavigate();
-
   const [userInformations, setUserInformation] = React.useState('');
   const [dialog, setDialog] = React.useState({ open: false });
   const { idUser } = useParams();
   useEffect(() => {
     if (localStorage.hasOwnProperty('token'))
-      axios(axiosConfig('PUT', `http://localhost:3000/api/user/${idUser}`))
+      axios(axiosConfig('PUT', `/api/user/${idUser}`))
         .then((res) => {
           setUserInformation(res.data);
           setDialog({
@@ -87,7 +81,7 @@ export default function Profil() {
     const birthdate = dialog.year + '-' + month + '-' + day;
     const axiosConfig = require('../configurations/axiosConfig');
     axios(
-      axiosConfig('POST', 'http://localhost:3000/api/user/modify', {
+      axiosConfig('POST', '/api/user/modify', {
         ...dialog,
         birthdate: birthdate,
       })
