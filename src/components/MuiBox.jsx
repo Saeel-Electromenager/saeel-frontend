@@ -1,14 +1,14 @@
-import { Grid, Typography, Divider, Drawer } from '@mui/material';
-import { Box, width } from '@mui/system';
+import { Divider, Drawer } from '@mui/material';
+import { Link } from 'react-router-dom';
+import { Box } from '@mui/system';
 import * as React from 'react';
-import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
-import Stack from '@mui/material/Stack';
+
 import IconButton from '@mui/material/IconButton';
 import DehazeIcon from '@mui/icons-material/Dehaze';
 import { useState } from 'react';
-import Dehaze from '@mui/icons-material/Dehaze';
+
 import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItem from '@mui/material/ListItem';
+
 import ListItemButton from '@mui/material/ListItemButton';
 import HomeIcon from '@mui/icons-material/HomeOutlined';
 import FaqIcon from '@mui/icons-material/Quiz';
@@ -58,6 +58,16 @@ export const MuiBox = () => {
               <ListItemText primary="Accueil" />
             </ListItemButton>
 
+            <Link to="/profil">
+              {' '}
+              <ListItemButton>
+                <ListItemIcon>
+                  <AccountCircleIcon />
+                </ListItemIcon>
+                <ListItemText primary="Profil" />
+              </ListItemButton>{' '}
+            </Link>
+
             <ListItemButton>
               <ListItemIcon>
                 <MenuIcon />
@@ -89,10 +99,7 @@ export const MuiBox = () => {
             <Divider />
 
             <ListItemButton onClick={handleClick}>
-              <ListItemIcon>
-                <AccountCircleIcon />
-              </ListItemIcon>
-              <ListItemText primary="Profil" />
+              <ListItemText primary="authentification" />
               {open ? <ExpandLess /> : <ExpandMore />}
             </ListItemButton>
             <Collapse in={open} timeout="auto" unmountOnExit>

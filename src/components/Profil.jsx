@@ -152,6 +152,7 @@ export default function Aboutme() {
         </Grid>
       </Grid>
       <Footer></Footer>
+      
     </Container>
   );
 }

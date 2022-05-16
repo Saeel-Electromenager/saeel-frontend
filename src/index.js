@@ -8,6 +8,7 @@ import Home from './pages/Home';
 import Profil from './components/Profil';
 import AddProduct from './components/AddProduct';
 
+import MaList from './components/MaList';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
@@ -18,6 +19,7 @@ root.render(
         <Route path="/login" element={<Login />}></Route>
         <Route path="/register" element={<Register />}></Route>
         <Route path="/addproduct" element={<AddProduct />}></Route>
+        <Route path="/MaList" element={<MaList />}></Route>
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

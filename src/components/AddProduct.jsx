@@ -1,6 +1,7 @@
 import { Button, Grid, TextField, Select, MenuItem } from '@mui/material';
 import React from 'react';
-
+import Footer from './Footer'
+import Header from './Header'
 export default function AddProduct() {
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
@@ -20,6 +21,8 @@ export default function AddProduct() {
     console.log(values);
   };
   return (
+    <div>
+      <Header />
     <Grid
       textAlign="center"
       m={4}
@@ -111,6 +114,9 @@ export default function AddProduct() {
         {' '}
         <Button variant="contained">Contained</Button>
       </Grid>
+
     </Grid>
+          <Footer />
+         </div>
   );
 }
