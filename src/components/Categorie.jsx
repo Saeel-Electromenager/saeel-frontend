@@ -1,4 +1,4 @@
-import { Grid, Button, Input, TextField } from '@mui/material';
+import { Grid, Button, TextField } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
 import * as React from 'react';
@@ -75,11 +75,10 @@ SimpleDialog.propTypes = {
 export default function SimpleDialogDemo() {
   const [values, setValues] = React.useState({
     categorie: '',
-
   });
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
-    console.log(event.target.value)
+    console.log(event.target.value);
   };
 
   const [open, setOpen] = React.useState(false);

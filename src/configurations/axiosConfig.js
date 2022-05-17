@@ -12,8 +12,6 @@ module.exports = function axiosConfig(method, url, body) {
 
   if (token) headers = { ...headers, Authorization: token };
 
-  // mettre le localhost automatiquement
-
   let axiosConfig = {
     method: method,
     url: url,

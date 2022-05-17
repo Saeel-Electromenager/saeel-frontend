@@ -69,7 +69,7 @@ export default function Connexion() {
 
   const login = (event) => {
     event.preventDefault();
-    axios(axiosConfig('POST', 'http://localhost:3000/api/user/login', values))
+    axios(axiosConfig('POST', '/api/user/login', values))
       .then((res) => {
         localStorage.setItem('token', res.data.idUser + ' ' + res.data.token);
         setSnackbarOpen({
@@ -92,14 +92,10 @@ export default function Connexion() {
   };
   const verifyCode = () => {
     axios(
-      axiosConfig(
-        'POST',
-        'http://localhost:3000/api/user/confirme-email-code',
-        {
-          login: values.login,
-          code: dialogValues.code,
-        }
-      )
+      axiosConfig('POST', '/api/user/confirme-email-code', {
+        login: values.login,
+        code: dialogValues.code,
+      })
     )
       .then((res) => {
         console.log(res);
@@ -122,13 +118,9 @@ export default function Connexion() {
   };
   const resentCode = () => {
     axios(
-      axiosConfig(
-        'POST',
-        'http://localhost:3000/api/user/confirme-email-get-code',
-        {
-          login: values.login,
-        }
-      )
+      axiosConfig('POST', '/api/user/confirme-email-get-code', {
+        login: values.login,
+      })
     )
       .then((res) => {
         console.log(res);

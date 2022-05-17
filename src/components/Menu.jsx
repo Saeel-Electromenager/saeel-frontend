@@ -64,7 +64,7 @@ export default function Menu({ activeClasse, setActiveClasse }) {
       </Button>
 
       <Box className="button-connection-home">
-        <Link to={logInfo.status ? '/profil/' + logInfo.idUser : '/login'}>
+        <Link to={logInfo.status ? '/user/' + logInfo.idUser : '/login'}>
           {useMediaQuery('(min-width:1150px)') ? (
             <Button
               className="button-connection"

@@ -8,7 +8,6 @@ import DehazeIcon from '@mui/icons-material/Dehaze';
 import { useState } from 'react';
 
 import ListItemIcon from '@mui/material/ListItemIcon';
-
 import ListItemButton from '@mui/material/ListItemButton';
 import HomeIcon from '@mui/icons-material/HomeOutlined';
 import FaqIcon from '@mui/icons-material/Quiz';
@@ -17,6 +16,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import StarOutlineOutlinedIcon from '@mui/icons-material/StarOutlineOutlined';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import AddIcon from '@mui/icons-material/Add';
+import LogoutIcon from '@mui/icons-material/Logout';
 import LoginIcon from '@mui/icons-material/Login';
 import List from '@mui/material/List';
 import ListItemText from '@mui/material/ListItemText';
@@ -31,6 +31,59 @@ export const MuiBox = () => {
   const handleClick = () => {
     setOpen(!open);
   };
+
+  function LinkToProfile() {
+    const isLogged = localStorage.hasOwnProperty('token');
+    if (isLogged) {
+      const idUser = localStorage.getItem('token').split(' ')[0];
+      return (
+        <Link to={`/user/${idUser}`}>
+          <ListItemButton>
+            <ListItemIcon>
+              <AccountCircleIcon />
+            </ListItemIcon>
+            <ListItemText primary="Profil" />
+          </ListItemButton>
+        </Link>
+      );
+    }
+    return null;
+  }
+
+  function AuthButton() {
+    const isLogged = localStorage.hasOwnProperty('token');
+    if (!isLogged) {
+      return (
+        <Box>
+          <Link to="/login">
+            <ListItemButton sx={{ pl: 4 }}>
+              <ListItemIcon>
+                <LoginIcon />
+              </ListItemIcon>
+              <ListItemText primary="Se connecter" />
+            </ListItemButton>
+          </Link>
+
+          <Link to="/register">
+            <ListItemButton sx={{ pl: 4 }}>
+              <ListItemIcon>
+                <AddIcon />
+              </ListItemIcon>
+              <ListItemText primary="S'inscrire" />
+            </ListItemButton>
+          </Link>
+        </Box>
+      );
+    } else
+      return (
+        <ListItemButton onClick={() => console.log('rr')} sx={{ pl: 4 }}>
+          <ListItemIcon>
+            <LogoutIcon />
+          </ListItemIcon>
+          <ListItemText primary="Se déconnecter" />
+        </ListItemButton>
+      );
+  }
   return (
     <>
       <IconButton
@@ -58,15 +111,7 @@ export const MuiBox = () => {
               <ListItemText primary="Accueil" />
             </ListItemButton>
 
-            <Link to="/profil">
-              {' '}
-              <ListItemButton>
-                <ListItemIcon>
-                  <AccountCircleIcon />
-                </ListItemIcon>
-                <ListItemText primary="Profil" />
-              </ListItemButton>{' '}
-            </Link>
+            {LinkToProfile()}
 
             <ListItemButton>
               <ListItemIcon>
@@ -99,24 +144,12 @@ export const MuiBox = () => {
             <Divider />
 
             <ListItemButton onClick={handleClick}>
-              <ListItemText primary="authentification" />
+              <ListItemText primary="Authentification" />
               {open ? <ExpandLess /> : <ExpandMore />}
             </ListItemButton>
             <Collapse in={open} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon>
-                    <LoginIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="Se connecter" />
-                </ListItemButton>
-
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon>
-                    <AddIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="S'inscrire" />
-                </ListItemButton>
+                <AuthButton />
               </List>
             </Collapse>
           </List>

@@ -10,13 +10,14 @@ import {
   Dialog,
   DialogContent,
   DialogTitle,
+  Box,
   DialogActions,
   TextField,
   MenuItem,
   Select,
 } from '@mui/material';
 import Footer from '../components/Footer';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 import Header from '../components/Header';
 import '../styles/Profil.css';
@@ -28,8 +29,10 @@ const axiosConfig = require('../configurations/axiosConfig');
 export default function Profil() {
   const [userInformations, setUserInformation] = React.useState('');
   const [dialog, setDialog] = React.useState({ open: false });
+  const [mineAccount, setMineAccount] = React.useState(false);
   const { idUser } = useParams();
   useEffect(() => {
+    setMineAccount(localStorage.getItem('token').split(' ')[0] === idUser);
     if (localStorage.hasOwnProperty('token'))
       axios(axiosConfig('PUT', `/api/user/${idUser}`))
         .then((res) => {
@@ -43,7 +46,8 @@ export default function Profil() {
             lastname: res.data.lastname,
             password: '',
           });
-          localStorage.setItem('userInformations', JSON.stringify(res.data));
+          if (localStorage.getItem('token').split(' ')[0] === idUser)
+            localStorage.setItem('userInformations', JSON.stringify(res.data));
         })
         .catch((error) => console.log(error));
   }, [idUser]);
@@ -52,10 +56,10 @@ export default function Profil() {
     switch (userInformations.type) {
       case 0:
         return 'Utilisateur';
-      case 1:
-        return 'Fournisseur';
       case 2:
         return 'Fournisseur';
+      case 1:
+        return 'Modérateur 🤓';
       case 3:
         return 'Administrateur 😎';
       default:
@@ -148,20 +152,42 @@ export default function Profil() {
     );
   }
 
+  function CreatedAt() {
+    if (!userInformations.createdAt) return null;
+    return userInformations.createdAt.split('T')[0];
+  }
+
+  function Dashboard() {
+    const userType = userInformations.type;
+    if (!!userType && mineAccount)
+      return (
+        <Link to="/dashboard">
+          <Button color="error" variant="contained">
+            Tableau de bord
+          </Button>
+        </Link>
+      );
+    return null;
+  }
+
   return (
     <Container>
       <Header />
       <Grid container>
         <Grid
-          item
-          md={12}
           container
           m={4}
           p={2}
-          style={{ backgroundColor: 'white', borderRadius: '18px' }}
+          style={{
+            backgroundColor: 'white',
+            borderRadius: '18px',
+            display: 'flex',
+            flexDirection: 'row',
+            flexWrap: 'wrap',
+            justifyContent: 'start',
+          }}
         >
           <Grid
-            item
             className="avatar"
             textAlign="left"
             style={{
@@ -173,20 +199,39 @@ export default function Profil() {
           >
             <img src={userInformations.image} alt="Avatar" />
           </Grid>
-          <Grid item md={9} lg={10} sm={8} xs={7}>
-            <Grid container style={{ justifyContent: 'space-between' }}>
+          <Grid
+            sx={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              justifyContent: 'space-between',
+              flexGrow: 2,
+              ml: 2,
+            }}
+          >
+            <Box style={{ justifyContent: 'space-between' }}>
               <h2>
                 {`${userInformations.firstname} ${userInformations.lastname}`}
               </h2>
-              <Etat />
-            </Grid>
+              <p style={{ color: 'rgb(176 176 176)' }}>{switchType()}</p>
+            </Box>
 
-            <Grid container style={{ justifyContent: 'space-between' }}>
-              <p style={{ color: 'rgb(0,0,0,0.5)' }}>{switchType()}</p>
-              <Button onClick={handleOpen} variant="contained">
-                Modifier profil
-              </Button>
-            </Grid>
+            <Box style={{ justifyContent: 'space-between' }}>
+              <Box
+                sx={{
+                  ml: 'auto',
+                  flexDirection: 'column',
+                  display: 'flex',
+                  alignItems: 'end',
+                  gap: '15px',
+                }}
+              >
+                <Etat />
+                <Button onClick={handleOpen} variant="contained">
+                  Modifier profil
+                </Button>
+                {Dashboard()}
+              </Box>
+            </Box>
           </Grid>
         </Grid>
 
@@ -205,7 +250,7 @@ export default function Profil() {
           <Grid>
             <p> date de naissance : {userInformations.birthdate}</p>
           </Grid>
-          <p>date d'inscription : {userInformations.createdAt}</p>
+          <p>date d'inscription : {CreatedAt()}</p>
         </Grid>
 
         <Grid
@@ -217,12 +262,12 @@ export default function Profil() {
           style={{ backgroundColor: 'white', borderRadius: '18px' }}
         >
           <Grid item xs={12} pl={1} textAlign="left">
-            <h2>mes adresse</h2>
+            <h2>Mes adresse</h2>
           </Grid>
           <Adresses />
           <Grid item md={4} xs={8} sm={6} lg={3} m="auto" p={3}>
             <Card sx={{ minWidth: 215 }}>
-              <Button>ajouter une adresse </Button>
+              <Button>Ajouter une adresse </Button>
             </Card>
           </Grid>
         </Grid>
@@ -236,7 +281,7 @@ export default function Profil() {
           style={{ backgroundColor: 'white', borderRadius: '18px' }}
         >
           <Grid item xs={12} pl={1} textAlign="left">
-            <h2>mes commande</h2>
+            <h2>Mes commande</h2>
           </Grid>
           <Commandes />
           <Grid item md={4} xs={8} sm={6} lg={3} m="auto" p={3}>

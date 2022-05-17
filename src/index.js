@@ -8,15 +8,15 @@ import Home from './pages/Home';
 import Profil from './pages/Profil';
 import AddProduct from './components/AddProduct';
 import Product from './pages/Product';
-
-import MaList from './components/MaList';
+import Dashboard from './pages/Dashboard';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
-        <Route path="/profil/:idUser" element={<Profil />}></Route>
+        <Route path="/user/:idUser" element={<Profil />}></Route>
         <Route path="/" element={<Home />}></Route>
+        <Route path="/dashboard" element={<Dashboard />}></Route>
         <Route path="/product/:idProduct" element={<Product />}></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/register" element={<Register />}></Route>
