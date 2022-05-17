@@ -91,9 +91,11 @@ export default function Inscription() {
   return (
     <Grid container justifyContent="center">
       <Grid item md={6} textAlign="center">
-        <nav style={{ width: '100%', textAlign: 'left' }}>
-          <img src={Logo} href="ezzz" alt="" className="logo" />
-        </nav>
+        <Link to="/">
+          <nav style={{ width: '100%', textAlign: 'left' }}>
+            <img src={Logo} href="ezzz" alt="" className="logo" />
+          </nav>
+        </Link>
         <Grid textAlign="center">
           <h1> Inscription</h1>
         </Grid>

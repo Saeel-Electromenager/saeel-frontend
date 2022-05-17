@@ -3,6 +3,8 @@ import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axiosConfig from '../configurations/axiosConfig';
 import AdminDashboard from '../components/AdminDashboard';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
 import { Box } from '@mui/material';
 
 export default function Dashboard() {
@@ -34,7 +36,9 @@ export default function Dashboard() {
   }
   return (
     <Box>
+      <Header />
       <GetDashboard />
+      <Footer />
     </Box>
   );
 }

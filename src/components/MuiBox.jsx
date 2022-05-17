@@ -6,6 +6,7 @@ import * as React from 'react';
 import IconButton from '@mui/material/IconButton';
 import DehazeIcon from '@mui/icons-material/Dehaze';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -24,7 +25,8 @@ import Collapse from '@mui/material/Collapse';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 
-export const MuiBox = () => {
+export default function MuiBox() {
+  const navigate = useNavigate();
   const [IsDrawerOpen, setIsDrawerOpen] = useState(false);
   const [open, setOpen] = React.useState(true);
 
@@ -76,7 +78,7 @@ export const MuiBox = () => {
       );
     } else
       return (
-        <ListItemButton onClick={() => console.log('rr')} sx={{ pl: 4 }}>
+        <ListItemButton onClick={logout} sx={{ pl: 4 }}>
           <ListItemIcon>
             <LogoutIcon />
           </ListItemIcon>
@@ -84,6 +86,11 @@ export const MuiBox = () => {
         </ListItemButton>
       );
   }
+  const logout = () => {
+    localStorage.clear();
+    navigate('/login');
+  };
+
   return (
     <>
       <IconButton
@@ -157,4 +164,4 @@ export const MuiBox = () => {
       </Drawer>
     </>
   );
-};
+}

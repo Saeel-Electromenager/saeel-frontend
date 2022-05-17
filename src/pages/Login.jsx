@@ -143,9 +143,11 @@ export default function Connexion() {
 
   return (
     <Container>
-      <nav style={{ width: '100%', height: '100px' }}>
-        <img src={Logo} alt="logo" className="logo" />
-      </nav>
+      <Link to="/">
+        <nav style={{ width: '100%', height: '100px' }}>
+          <img src={Logo} alt="logo" className="logo" />
+        </nav>
+      </Link>
       <Grid container spacing={2} justifyContent="center">
         <Grid item md={7} xs={12} textAlign="center" className="image2">
           <img
