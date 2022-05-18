@@ -3,9 +3,10 @@ import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axiosConfig from '../configurations/axiosConfig';
 import AdminDashboard from '../components/AdminDashboard';
+import ProviderDashboard from '../components/ProviderDashboard';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import { Box } from '@mui/material';
+import { Container } from '@mui/material';
 
 export default function Dashboard() {
   const navigate = useNavigate();
@@ -25,7 +26,7 @@ export default function Dashboard() {
   function GetDashboard() {
     switch (userInformations.type) {
       case 1:
-        return <div>fournisseur</div>;
+        return <ProviderDashboard />;
       case 2:
         return <AdminDashboard />;
       case 3:
@@ -35,10 +36,10 @@ export default function Dashboard() {
     }
   }
   return (
-    <Box>
+    <Container>
       <Header />
       <GetDashboard />
       <Footer />
-    </Box>
+    </Container>
   );
 }

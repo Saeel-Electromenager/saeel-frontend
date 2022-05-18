@@ -1,80 +1,64 @@
 import { Grid, Button, TextField } from '@mui/material';
-import { styled } from '@mui/material/styles';
-
 import * as React from 'react';
-import PropTypes from 'prop-types';
-
-import ListItem from '@mui/material/ListItem';
-
 import DialogTitle from '@mui/material/DialogTitle';
 import { Dialog, List } from '@mui/material';
+import axios from 'axios';
+import axiosConfig from '../configurations/axiosConfig';
 
-function SimpleDialog({ onClose, selectedValue, open, values, handleChange }) {
+function SimpleDialog({
+  onClose,
+  selectedValue,
+  open,
+  values,
+  handleChange,
+  addCategory,
+}) {
   const handleClose = () => {
     onClose(selectedValue);
   };
 
-  const handleListItemClick = (value) => {
-    onClose(value);
-  };
-
-  const Input = styled('input')({
-    display: 'none',
-  });
-
   return (
-    <Dialog onClose={handleClose} open={open}>
+    <Dialog
+      component="form"
+      onSubmit={addCategory}
+      onClose={handleClose}
+      open={open}
+    >
       <DialogTitle style={{ minWidth: '400px' }}>
-        ajouter une nouvelle categorie
+        Créer une nouvelle categorie
       </DialogTitle>
-
-      <List sx={{ pt: 0 }}>
+      <List sx={{ mx: 5, mb: 4 }}>
         <TextField
-          label="catégorie"
+          label="Nom de la catégorie"
           value={values.categorie}
-          onChange={handleChange('categorie')}
+          fullWidth
+          onChange={handleChange('name')}
         ></TextField>
-        <label htmlFor="contained-button-file" style={{}}>
-          {' '}
-          <br />
-          <br />
-          <Input
-            accept="image/*"
-            id="contained-button-file"
-            multiple
-            type="file"
-          />
-          <Button variant="contained" component="span">
-            add picture
-          </Button>
-          <br />
-          <br />
-          <Grid ml="300px">
-            {' '}
-            <Button style={{ margin: 'auto' }} variant="contained">
-              ajouter cat
-            </Button>{' '}
-          </Grid>
-        </label>
-        <ListItem
-          autoFocus
-          button
-          onClick={() => handleListItemClick('addAccount')}
-        ></ListItem>
+        <TextField
+          label="URL de l'image"
+          value={values.categorie}
+          fullWidth
+          sx={{ my: 1 }}
+          onChange={handleChange('image')}
+        ></TextField>
+        <Grid textAlign="center">
+          <Button type="submit">Créer</Button>
+        </Grid>
       </List>
     </Dialog>
   );
 }
 
-SimpleDialog.propTypes = {
-  onClose: PropTypes.func.isRequired,
-  open: PropTypes.bool.isRequired,
-  selectedValue: PropTypes.string.isRequired,
-};
+// SimpleDialog.propTypes = {
+//   onClose: PropTypes.func.isRequired,
+//   open: PropTypes.bool.isRequired,
+//   selectedValue: PropTypes.string.isRequired,
+// };
 
 export default function SimpleDialogDemo() {
   const [values, setValues] = React.useState({
-    categorie: '',
+    name: '',
+    image: '',
   });
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
@@ -89,14 +73,28 @@ export default function SimpleDialogDemo() {
   };
 
   const handleClose = (value) => {
+    console.log('dd');
     setOpen(false);
     setSelectedValue(value);
   };
 
+  const addCategory = (event) => {
+    event.preventDefault();
+    axios(axiosConfig('POST', '/api/category/add', values))
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <div>
-      <Grid>
-        <Button onClick={handleClickOpen}>Categorie</Button>
+      <Grid sx={{ marginTop: 3 }}>
+        <Button onClick={handleClickOpen}>
+          Ajouter une nouvelle catégorie
+        </Button>
       </Grid>
 
       <SimpleDialog
@@ -105,6 +103,7 @@ export default function SimpleDialogDemo() {
         selectedValue={selectedValue}
         open={open}
         onClose={handleClose}
+        addCategory={addCategory}
       />
     </div>
   );

@@ -10,6 +10,7 @@ import {
   Typography,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import { Link } from 'react-router-dom';
 
 const StyledRating = styled(Rating)({
   '& .MuiRating-iconFilled': {
@@ -18,6 +19,16 @@ const StyledRating = styled(Rating)({
 });
 
 export default function CardProduct({ product, marker }) {
+  // testing
+  product.rating = { rate: 4, raters: 22 };
+  function getImage(product) {
+    console.log(product);
+    if (!product.Images)
+      return 'https://www.01net.com/mrf4u/statics/i/ps/img.bfmtv.com/c/630/420/1ab/aaa7d2917a46d9915bde5b6120b59.jpg?width=1200&enable=upscale';
+    else if (product.Images.length > 0) return product.Images[0].url;
+    else
+      return 'https://www.01net.com/mrf4u/statics/i/ps/img.bfmtv.com/c/630/420/1ab/aaa7d2917a46d9915bde5b6120b59.jpg?width=1200&enable=upscale';
+  }
   return (
     <Card
       sx={{
@@ -34,7 +45,7 @@ export default function CardProduct({ product, marker }) {
       <CardMedia
         component="img"
         sx={{ m: 'auto', mt: 6, mb: 3, width: 'calc(100% - 100px)' }}
-        image={product.images[0]}
+        image={getImage(product)}
         alt={`image du produit ${product.title}`}
       />
       <CardContent>
@@ -85,45 +96,49 @@ export default function CardProduct({ product, marker }) {
           {product.title}
         </Typography>
 
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            flexDirection: 'row',
-            alignItems: 'center',
-            my: 2,
-          }}
-        >
-          <Typography
+        {parseInt(product.discount) !== 0 ? (
+          <Box
             sx={{
-              fontFamily: 'Poppins',
-              fontStyle: 'normal',
-              fontWeight: 500,
-              textDecoration: 'line-through',
-              fontSize: '14px',
+              display: 'flex',
+              justifyContent: 'center',
+              flexDirection: 'row',
+              alignItems: 'center',
+              my: 2,
             }}
-            component="span"
-            color="text.secondary"
           >
-            {product.price + ',00 DA'}
-          </Typography>
-          <Typography
-            component="span"
-            sx={{
-              fontSize: '13px',
-              color: '#FA533C',
-              border: '4px solid #FA533C',
-              p: '3px',
-              marginLeft: '5px',
-              fontFamily: 'Poppins',
-              fontStyle: 'normal',
-              fontWeight: 600,
-            }}
-            color="text.secondary"
-          >
-            -{Math.trunc((product.discount * 100) / product.price)}%
-          </Typography>
-        </Box>
+            <Typography
+              sx={{
+                fontFamily: 'Poppins',
+                fontStyle: 'normal',
+                fontWeight: 500,
+                textDecoration: 'line-through',
+                fontSize: '14px',
+              }}
+              component="span"
+              color="text.secondary"
+            >
+              {product.price + ',00 DA'}
+            </Typography>
+            <Typography
+              component="span"
+              sx={{
+                fontSize: '13px',
+                color: '#FA533C',
+                border: '4px solid #FA533C',
+                p: '3px',
+                marginLeft: '5px',
+                fontFamily: 'Poppins',
+                fontStyle: 'normal',
+                fontWeight: 600,
+              }}
+              color="text.secondary"
+            >
+              -{product.discount}%
+            </Typography>
+          </Box>
+        ) : (
+          ''
+        )}
 
         <Typography
           sx={{
@@ -135,31 +150,33 @@ export default function CardProduct({ product, marker }) {
           }}
           component="h4"
         >
-          {product.price - product.discount + ',00 DA'}
+          {Math.trunc(product.price * (1 - product.discount / 100)) + ',00 DA'}
         </Typography>
-        <CardActions>
-          <Button
-            sx={[
-              {
-                m: '15px auto 0 auto',
-                fontSize: '15px',
-                fontFamily: 'Poppins',
-                fontStyle: 'normal',
-                fontWeight: 500,
-                textAlign: 'center',
-                bgcolor: '#FA533C',
-                borderRadius: '8px',
-              },
-              (theme) => ({
-                '&:hover': {
-                  bgcolor: '#FF2406',
+        <CardActions sx={{ justifyContent: 'center' }}>
+          <Link sx={{ m: 'auto' }} to={`/product/${product.idProduct}`}>
+            <Button
+              sx={[
+                {
+                  m: '15px auto 0 auto',
+                  fontSize: '15px',
+                  fontFamily: 'Poppins',
+                  fontStyle: 'normal',
+                  fontWeight: 500,
+                  textAlign: 'center',
+                  bgcolor: '#FA533C',
+                  borderRadius: '8px',
                 },
-              }),
-            ]}
-            variant="contained"
-          >
-            Voir plus
-          </Button>
+                (theme) => ({
+                  '&:hover': {
+                    bgcolor: '#FF2406',
+                  },
+                }),
+              ]}
+              variant="contained"
+            >
+              Voir plus
+            </Button>
+          </Link>
         </CardActions>
       </CardContent>
       <Box
