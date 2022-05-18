@@ -23,6 +23,7 @@ import Header from '../components/Header';
 import '../styles/Profil.css';
 import Etat from '../components/Etat';
 import axios from 'axios';
+import AjoutAdresse from '../components/AjoutAdresse';
 
 const axiosConfig = require('../configurations/axiosConfig');
 
@@ -267,7 +268,7 @@ export default function Profil() {
           <Adresses />
           <Grid item md={4} xs={8} sm={6} lg={3} m="auto" p={3}>
             <Card sx={{ minWidth: 215 }}>
-              <Button>Ajouter une adresse </Button>
+              <AjoutAdresse />
             </Card>
           </Grid>
         </Grid>
