@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Search from '../components/Search';
+import HomeSearch from './HomeSearch';
 import SwiperHome from '../components/SwiperHome';
 import ArgumentHome from '../components/ArgumentHome';
 import TopRatedHome from '../components/TopRatedHome';
@@ -19,7 +19,7 @@ export default function Body({ activeClasse }) {
               flexDirection: 'column',
             }}
           >
-            <Search />
+            <HomeSearch />
             <SwiperHome />
             <ArgumentHome />
             <TopRatedHome />

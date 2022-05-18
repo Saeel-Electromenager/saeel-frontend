@@ -57,9 +57,9 @@ export default function Profil() {
     switch (userInformations.type) {
       case 0:
         return 'Utilisateur';
-      case 2:
-        return 'Fournisseur';
       case 1:
+        return 'Fournisseur';
+      case 2:
         return 'Modérateur 🤓';
       case 3:
         return 'Administrateur 😎';
@@ -119,9 +119,7 @@ export default function Profil() {
                 <Typography>{adress.commune}</Typography>
                 <Typography>{adress.phone}</Typography>
                 <Typography style={{ marginLeft: '60%' }}>
-                  <Button onClick={() => console.log(adress.idAdress)}>
-                    modifier
-                  </Button>
+                  <Button>modifier</Button>
                 </Typography>
               </CardContent>
             </Card>
@@ -156,6 +154,19 @@ export default function Profil() {
   function CreatedAt() {
     if (!userInformations.createdAt) return null;
     return userInformations.createdAt.split('T')[0];
+  }
+
+  function EditProfil() {
+    const userType = userInformations.type;
+    if (!!userType && mineAccount)
+      return (
+        <Box>
+          <Button onClick={handleOpen} variant="contained">
+            Modifier profil
+          </Button>
+        </Box>
+      );
+    return null;
   }
 
   function Dashboard() {
@@ -226,10 +237,8 @@ export default function Profil() {
                   gap: '15px',
                 }}
               >
-                <Etat />
-                <Button onClick={handleOpen} variant="contained">
-                  Modifier profil
-                </Button>
+                <Etat userType={userInformations.type} />
+                {EditProfil()}
                 {Dashboard()}
               </Box>
             </Box>

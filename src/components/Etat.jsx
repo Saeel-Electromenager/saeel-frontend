@@ -5,71 +5,102 @@ import {
   InputLabel,
   Select,
   MenuItem,
+  Box,
+  Button,
 } from '@mui/material';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import { useParams } from 'react-router-dom';
 
 import * as React from 'react';
-import PropTypes from 'prop-types';
-
-import ListItem from '@mui/material/ListItem';
 
 import DialogTitle from '@mui/material/DialogTitle';
 import { Dialog, List } from '@mui/material';
+import axios from 'axios';
+import axiosConfig from '../configurations/axiosConfig';
 
 function SimpleDialog(props) {
-  const { onClose, selectedValue, open } = props;
+  const { idUser } = useParams();
+  const { onClose, selectedValue, open, userType } = props;
 
   const handleClose = () => {
     onClose(selectedValue);
   };
 
-  const handleListItemClick = (value) => {
-    onClose(value);
-  };
-  const [age, setAge] = React.useState('');
+  const [type, setType] = React.useState('');
+
+  React.useEffect(() => {
+    if (userType) setType(userType);
+  }, [userType]);
 
   const handleChange = (event) => {
-    setAge(event.target.value);
-    console.log('ttttt' + event.target.value);
+    setType(event.target.value);
   };
 
-  return (
-    <Dialog onClose={handleClose} open={open}>
-      <DialogTitle>Modifier Status Profile</DialogTitle>
+  function valideChange(event) {
+    event.preventDefault();
+    axios(axiosConfig('PUT', `/api/user/upgrade/${idUser}`, { type }))
+      .then((res) => {
+        onClose(false);
+      })
+      .catch((error) => console.log(error));
+    console.log(type);
+  }
 
-      <List sx={{ pt: 0 }}>
+  return (
+    <Dialog
+      component="form"
+      onSubmit={valideChange}
+      onClose={handleClose}
+      open={open}
+    >
+      <DialogTitle>Modifier le type de l'utilisateur</DialogTitle>
+
+      <List sx={{ p: 3 }}>
         <FormControl fullWidth>
           <InputLabel id="demo-simple-select-label">Status</InputLabel>
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
-            value={age}
-            label="Age"
+            value={type}
+            label="Type"
             onChange={handleChange}
           >
-            <MenuItem value={0}>user</MenuItem>
-            <MenuItem value={1}>fornesseur</MenuItem>
-            <MenuItem value={2}>moderateur</MenuItem>
+            <MenuItem
+              sx={{ color: userType === 0 ? 'green' : 'black' }}
+              value={0}
+            >
+              User
+            </MenuItem>
+            <MenuItem
+              sx={{ color: userType === 1 ? 'green' : 'black' }}
+              value={1}
+            >
+              Fournisseur
+            </MenuItem>
+            <MenuItem
+              sx={{ color: userType === 2 ? 'green' : 'black' }}
+              value={2}
+            >
+              Modérateur
+            </MenuItem>
           </Select>
-        </FormControl>
 
-        <ListItem
-          autoFocus
-          button
-          onClick={() => handleListItemClick('addAccount')}
-        ></ListItem>
+          <Button sx={{ mt: 3 }} type="submit">
+            Confirmer
+          </Button>
+        </FormControl>
       </List>
     </Dialog>
   );
 }
 
-SimpleDialog.propTypes = {
-  onClose: PropTypes.func.isRequired,
-  open: PropTypes.bool.isRequired,
-  selectedValue: PropTypes.string.isRequired,
-};
+// SimpleDialog.propTypes = {
+//   onClose: PropTypes.func.isRequired,
+//   open: PropTypes.bool.isRequired,
+//   selectedValue: PropTypes.string.isRequired,
+// };
 
-export default function SimpleDialogDemo() {
+export default function SimpleDialogDemo({ userType }) {
   const [open, setOpen] = React.useState(false);
   const [selectedValue, setSelectedValue] = React.useState('');
 
@@ -83,7 +114,7 @@ export default function SimpleDialogDemo() {
   };
 
   return (
-    <div>
+    <Box>
       <Grid>
         <IconButton aria-label="more" onClick={handleClickOpen}>
           <MoreVertIcon />
@@ -91,10 +122,11 @@ export default function SimpleDialogDemo() {
       </Grid>
 
       <SimpleDialog
+        userType={userType}
         selectedValue={selectedValue}
         open={open}
         onClose={handleClose}
       />
-    </div>
+    </Box>
   );
 }
