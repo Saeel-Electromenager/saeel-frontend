@@ -14,6 +14,7 @@ import axios from 'axios';
 import axiosConfig from '../configurations/axiosConfig';
 
 export default function AdminDashboard({ admin }) {
+  
   const [providers, setProviders] = React.useState('');
   const [categories, setCategories] = React.useState([]);
   const [moderators, setModerators] = React.useState('');

@@ -118,6 +118,8 @@ export default function Profil() {
                 <Typography>{adress.daira}</Typography>
                 <Typography>{adress.commune}</Typography>
                 <Typography>{adress.phone}</Typography>
+                <Typography>{adress.adress}</Typography>
+          
                 <Typography style={{ marginLeft: '60%' }}>
                   <Button>modifier</Button>
                 </Typography>

@@ -40,10 +40,10 @@ function SimpleDialog(props) {
     event.preventDefault();
     axios(axiosConfig('PUT', `/api/user/upgrade/${idUser}`, { type }))
       .then((res) => {
+        console.log(res);
         onClose(false);
       })
       .catch((error) => console.log(error));
-    console.log(type);
   }
 
   return (
