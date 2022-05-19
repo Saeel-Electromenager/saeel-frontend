@@ -7,6 +7,8 @@ import ListItem from '@mui/material/ListItem';
 
 import DialogTitle from '@mui/material/DialogTitle';
 import { Dialog, List } from '@mui/material';
+import axios from 'axios';
+import axiosConfig from '../configurations/axiosConfig';
 
 function SimpleDialog({ onClose, selectedValue, open, values, handleChange }) {
   const handleClose = () => {
@@ -16,8 +18,11 @@ function SimpleDialog({ onClose, selectedValue, open, values, handleChange }) {
   const handleListItemClick = (value) => {
     onClose(value);
   };
-  const br = () => {
+  const addadress = () => {
     console.log(values);
+    axios(axiosConfig('POST', '/api/adress/add', values))
+      .then((res) => console.log(res.data))
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -50,21 +55,24 @@ function SimpleDialog({ onClose, selectedValue, open, values, handleChange }) {
             onChange={handleChange('phone')}
           ></TextField>
         </Grid>
-
-        <TextField
-          label="adress (rue)"
-          rows={2}
-          style={{ width: '80%', margin: '15PX' }}
-          multiline
-          value={values.adress}
-          onChange={handleChange('adress')}
-        ></TextField>
+        <Grid textAlign="center">
+          <TextField
+            label="adress (rue)"
+            rows={2}
+            style={{ width: '80%', margin: '15PX' }}
+            multiline
+            value={values.adress}
+            onChange={handleChange('adress')}
+          ></TextField>
+        </Grid>
         <Grid p={4} textAlign="right">
+          {' '}
           <Grid>
-            <Button onClick={br} variant="contained">
-              Contained
+            {' '}
+            <Button onClick={addadress} variant="contained">
+              ajouter address
             </Button>
-          </Grid>
+          </Grid>{' '}
         </Grid>
 
         <ListItem

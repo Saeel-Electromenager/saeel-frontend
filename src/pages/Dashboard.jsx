@@ -26,7 +26,7 @@ export default function Dashboard() {
   function GetDashboard() {
     switch (userInformations.type) {
       case 1:
-        return <ProviderDashboard />;
+        return <ProviderDashboard admin />;
       case 2:
         return <AdminDashboard />;
       case 3:
