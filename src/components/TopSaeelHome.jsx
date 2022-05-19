@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import axiosConfig from '../configurations/axiosConfig';
 
-export default function NewProductHome() {
+export default function TopRatedHome() {
   function maxItem() {
     const width = window.innerWidth;
     if (width > 1896) return 6;
@@ -14,11 +14,32 @@ export default function NewProductHome() {
     if (width > 992) return 3;
     return 4;
   }
-  const [products, setProducts] = React.useState([]);
+  //  Format we need
+  // {
+  //   id: 233,
+  //   category: '',
+  //   title: 'Barbecue gaz Weber Spirit II E-310..',
+  //   model: 'Galaxy 56K T5',
+  //   price: 70000,
+  //   description: 'LOREM MA GUEULE',
+  //   discount: 14000,
+  //   quantity: 10,
+  //   rating: {
+  //     rate: 4,
+  //     raters: 23,
+  //   },
+  //   images: [
+  //     'https://boulanger.scene7.com/is/image/Boulanger/0077924086908_h_f_l_0?wid=500&hei=500',
+  //   ],
+  // },
+
+  const [products, setProduct] = React.useState([]);
 
   React.useEffect(() => {
-    axios(axiosConfig('GET', '/api/product/new-products'))
-      .then((res) => setProducts(res.data))
+    axios(axiosConfig('GET', '/api/product/top-saeel'))
+      .then((res) => {
+        setProduct(res.data);
+      })
       .catch((error) => {
         console.log(error);
       });
@@ -26,6 +47,7 @@ export default function NewProductHome() {
   return (
     <Grid sx={{ width: '100%' }}>
       <Grid
+        container
         sx={{
           display: 'flex',
           flexDirection: 'row',
@@ -43,11 +65,11 @@ export default function NewProductHome() {
             lineHeight: '30px',
           }}
         >
-          Les nouveaux produits
+          Les mieux notés
         </Typography>
         <Link
           className="show-more-top-rate-products"
-          to="/new-products"
+          to="/top-saeel"
           style={{
             textDecoration: 'none',
             fontFamily: 'Poppins',
@@ -61,6 +83,7 @@ export default function NewProductHome() {
         </Link>
       </Grid>
       <Grid
+        container
         sx={{
           display: 'flex',
           flexWrap: 'wrap',
@@ -76,7 +99,7 @@ export default function NewProductHome() {
             return (
               <CardProduct
                 key={`${product.id}-${index}`}
-                marker="New"
+                marker="Rate"
                 product={product}
               />
             );

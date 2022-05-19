@@ -69,7 +69,7 @@ export default function Connexion() {
 
   const login = (event) => {
     event.preventDefault();
-    axios(axiosConfig('POST', 'http://localhost:3000/api/user/login', values))
+    axios(axiosConfig('POST', '/api/user/login', values))
       .then((res) => {
         localStorage.setItem('token', res.data.idUser + ' ' + res.data.token);
         setSnackbarOpen({
@@ -77,11 +77,9 @@ export default function Connexion() {
           message: 'Heureux de vous revoir ' + res.data.firstname + ' 💙',
           type: 'success',
         });
-        console.log(res.data);
         if (res.data.status === 0) {
           setDialogValues({ ...dialogValues, open: true });
-        }
-        navigate('/');
+        } else navigate('/');
       })
       .catch((error) => {
         console.log(error);
@@ -94,14 +92,10 @@ export default function Connexion() {
   };
   const verifyCode = () => {
     axios(
-      axiosConfig(
-        'POST',
-        'http://localhost:3000/api/user/confirme-email-code',
-        {
-          login: values.login,
-          code: dialogValues.code,
-        }
-      )
+      axiosConfig('POST', '/api/user/confirme-email-code', {
+        login: values.login,
+        code: dialogValues.code,
+      })
     )
       .then((res) => {
         console.log(res);
@@ -124,11 +118,9 @@ export default function Connexion() {
   };
   const resentCode = () => {
     axios(
-      axiosConfig(
-        'POST',
-        'http://localhost:3000/api/user/confirme-email-get-code',
-        values
-      )
+      axiosConfig('POST', '/api/user/confirme-email-get-code', {
+        login: values.login,
+      })
     )
       .then((res) => {
         console.log(res);
@@ -140,20 +132,22 @@ export default function Connexion() {
         });
       })
       .catch((error) => {
+        console.log(error);
         setSnackbarOpen({
           status: true,
           message: error.response.data.error,
           type: 'error',
         });
-        console.log(error.response.data.error);
       });
   };
 
   return (
     <Container>
-      <nav style={{ width: '100%', height: '100px' }}>
-        <img src={Logo} alt="logo" className="logo" />
-      </nav>
+      <Link to="/">
+        <nav style={{ width: '100%', height: '100px' }}>
+          <img src={Logo} alt="logo" className="logo" />
+        </nav>
+      </Link>
       <Grid container spacing={2} justifyContent="center">
         <Grid item md={7} xs={12} textAlign="center" className="image2">
           <img

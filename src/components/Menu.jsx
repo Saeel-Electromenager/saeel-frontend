@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useEffect } from 'react';
 import '../styles/Menu.css';
 import Button from '@mui/material/Button';
 import HomeIcon from '@mui/icons-material/HomeOutlined';
@@ -13,6 +13,18 @@ import LoginIcon from '@mui/icons-material/Login';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 export default function Menu({ activeClasse, setActiveClasse }) {
+  const [logInfo, setLogInfo] = React.useState({
+    status: false,
+  });
+  useEffect(() => {
+    const isLogged = localStorage.hasOwnProperty('token');
+    if (isLogged)
+      setLogInfo({
+        idUser: localStorage.getItem('token').split(' ')[0],
+        status: true,
+      });
+  }, [logInfo]);
+
   return (
     <Stack className="container" direction="column" spacing={3}>
       <Button
@@ -52,13 +64,19 @@ export default function Menu({ activeClasse, setActiveClasse }) {
       </Button>
 
       <Box className="button-connection-home">
-        <Link to="/login">
+        <Link to={logInfo.status ? '/user/' + logInfo.idUser : '/login'}>
           {useMediaQuery('(min-width:1150px)') ? (
             <Button
               className="button-connection"
-              endIcon={<LoginIcon className="svg_icons_connection" />}
+              endIcon={
+                logInfo.status ? (
+                  <AccountCircleIcon />
+                ) : (
+                  <LoginIcon className="svg_icons_connection" />
+                )
+              }
             >
-              Connexion
+              {logInfo.status ? 'Profile' : 'Connexion'}
             </Button>
           ) : (
             <IconButton className="account-mobile" aria-label="delete">
