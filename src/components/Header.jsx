@@ -10,8 +10,7 @@ import DehazeIcon from '@mui/icons-material/Dehaze';
 import { useState } from 'react';
 import { MuiBox } from './MuiBox';
 
-export default function F() {
-  const [IsDrawerOpen, setIsDrawerOpen] = useState(false);
+export default function Header() {
   return (
     <Grid>
       <Stack pb={4} pt={3} direction="row" spacing={1}>
