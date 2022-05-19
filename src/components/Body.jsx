@@ -2,9 +2,11 @@ import * as React from 'react';
 import HomeSearch from './HomeSearch';
 import SwiperHome from '../components/SwiperHome';
 import ArgumentHome from '../components/ArgumentHome';
-import TopRatedHome from '../components/TopRatedHome';
+import TopSaeelHome from '../components/TopSaeelHome';
+import TopSaeelBody from './TopSaeelBody.jsx';
 import NewProductHome from '../components/NewProductHome';
 import CategoriesHome from '../components/CategoriesHome';
+import CategorieInMenu from './CategorieInMenu.jsx';
 import { Grid } from '@mui/material';
 
 export default function Body({ activeClasse }) {
@@ -22,18 +24,22 @@ export default function Body({ activeClasse }) {
             <HomeSearch />
             <SwiperHome />
             <ArgumentHome />
-            <TopRatedHome />
+            <TopSaeelHome />
             <NewProductHome />
             <CategoriesHome />
           </Grid>
         );
       case 'Categories':
         return (
-          <Grid
-            container
-            spacing={3}
-            sx={{ padding: '20px 50px 100px 50px', rowGap: '50px' }}
-          ></Grid>
+          <Grid>
+            <CategorieInMenu />
+          </Grid>
+        );
+      case 'TopSaeel':
+        return (
+          <Grid>
+            <TopSaeelBody />
+          </Grid>
         );
 
       default:

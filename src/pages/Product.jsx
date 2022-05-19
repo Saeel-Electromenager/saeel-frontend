@@ -12,6 +12,7 @@ import {
 import React, { useEffect } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import DialogOrder from '../components/DialogOrder';
 import '../styles/Product.css';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
@@ -20,15 +21,16 @@ const axiosConfig = require('../configurations/axiosConfig');
 
 export default function Product() {
   const [productInformations, setProductInformations] = React.useState('');
+  const [open, setOpen] = React.useState(true);
 
   const { idProduct } = useParams();
   useEffect(() => {
-    if (localStorage.hasOwnProperty('token'))
-      axios(axiosConfig('PUT', `/api/product/${idProduct}`))
-        .then((res) => {
-          setProductInformations(res.data);
-        })
-        .catch((error) => console.log(error));
+    axios(axiosConfig('PUT', `/api/product/${idProduct}`))
+      .then((res) => {
+        console.log(res.data);
+        setProductInformations(res.data);
+      })
+      .catch((error) => console.log(error));
   }, [idProduct]);
 
   function getUsername() {
@@ -39,6 +41,13 @@ export default function Product() {
   function getDescription() {
     if (!productInformations) return '-';
     return productInformations.description.substring(0, 130);
+  }
+
+  function getImage() {
+    if (!!productInformations)
+      if (productInformations.Images.length > 0)
+        return productInformations.Images[0].url;
+    return 'https://mui.com/static/images/cards/live-from-space.jpg';
   }
   return (
     <Box>
@@ -59,7 +68,7 @@ export default function Product() {
                   component="img"
                   height={'100%'}
                   width="100%"
-                  image="https://mui.com/static/images/cards/live-from-space.jpg"
+                  image={getImage()}
                   alt="green iguana"
                 />
               </Grid>
@@ -88,34 +97,33 @@ export default function Product() {
                   <Typography variant="body2">{getDescription()}</Typography>
                 </CardContent>
                 <CardActions sx={{ marginTop: 'auto', marginLeft: 'auto' }}>
-                  <Button size="small">Acheter</Button>
+                  <Button onClick={() => setOpen(true)} size="small">
+                    Acheter
+                  </Button>
                 </CardActions>
               </Grid>
             </Grid>
           </Card>
 
-          <Card>carossel image</Card>
+          <Card>TODO : carossel image</Card>
 
-          <Card>
-            <Typography variant="h5" component="div">
+          <Card sx={{ p: 2 }}>
+            <Typography variant="h4" component="h2">
               Description
             </Typography>
             <Typography variant="body2" width="100%">
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Minus
-              sapiente, nulla earum distinctio officiis id? Et provident
-              animi... Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-              Placeat repellat porro error ipsum laboriosam quia deserunt ad
-              similique nemo consequuntur. Repellendus recusandae eum blanditiis
-              et, totam velit earum ducimus nihil? Lorem ipsum dolor sit amet
-              consectetur adipisicing elit. Deleniti harum doloribus placeat,
-              molestias repellat adipisci assumenda praesentium exercitationem
-              consequuntur fugit saepe nihil pariatur, voluptas dolores
-              doloremque! Iure nihil dolorem impedit!
+              {productInformations.description}
             </Typography>
           </Card>
         </Grid>
         <Footer />
       </Container>
+
+      <DialogOrder
+        product={productInformations}
+        open={open}
+        setOpen={setOpen}
+      />
     </Box>
   );
 }

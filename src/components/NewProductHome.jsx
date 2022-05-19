@@ -2,6 +2,8 @@ import * as React from 'react';
 import { Grid, Typography } from '@mui/material';
 import CardProduct from './CardProduct';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+import axiosConfig from '../configurations/axiosConfig';
 
 export default function NewProductHome() {
   function maxItem() {
@@ -12,93 +14,15 @@ export default function NewProductHome() {
     if (width > 992) return 3;
     return 4;
   }
-  const [products] = React.useState([
-    {
-      id: 233,
-      category: '',
-      title: 'Barbecue gaz Weber Spirit II E-310..',
-      model: 'Galaxy 56K T5',
-      price: 70000,
-      description: 'LOREM MA GUEULE',
-      discount: 14000,
-      quantity: 10,
-      rating: {
-        rate: 4,
-        raters: 23,
-      },
-      images: [
-        'https://boulanger.scene7.com/is/image/Boulanger/0077924086908_h_f_l_0?wid=500&hei=500',
-      ],
-    },
-    {
-      id: 3,
-      category: '',
-      title: 'Barbecue gaz Weber Spirit II E-310..',
-      model: 'Galaxy 56K T5',
-      price: 70000,
-      description: 'LOREM MA GUEULE',
-      discount: 14000,
-      quantity: 10,
-      rating: {
-        rate: 4,
-        raters: 23,
-      },
-      images: [
-        'https://boulanger.scene7.com/is/image/Boulanger/0077924086908_h_f_l_0?wid=500&hei=500',
-      ],
-    },
-    {
-      id: 232,
-      category: '',
-      title: 'Barbecue gaz Weber Spirit II E-310..',
-      model: 'Spirit II E-310',
-      price: 90000,
-      description: 'LOREM MA GUEULE',
-      discount: 17000,
-      quantity: 10,
-      rating: {
-        rate: 2.4,
-        raters: 3,
-      },
-      images: [
-        'https://boulanger.scene7.com/is/image/Boulanger/5060359289131_h_f_l_0?wid=500&hei=500',
-      ],
-    },
-    {
-      id: 133,
-      category: '',
-      title: 'Barbecue gaz Weber Spirit II E-310..',
-      model: 'Galaxy 56K T5',
-      price: 70000,
-      description: 'LOREM MA GUEULE',
-      discount: 14000,
-      quantity: 10,
-      rating: {
-        rate: 4,
-        raters: 23,
-      },
-      images: [
-        'https://boulanger.scene7.com/is/image/Boulanger/8003437938115_h_p_l_0?wid=500&hei=500',
-      ],
-    },
-    {
-      id: 23,
-      category: '',
-      title: 'Barbecue gaz Weber Spirit II E-310..',
-      model: 'Galaxy 56K T5',
-      price: 70000,
-      description: 'LOREM MA GUEULE',
-      discount: 14000,
-      quantity: 10,
-      rating: {
-        rate: 4,
-        raters: 23,
-      },
-      images: [
-        'https://boulanger.scene7.com/is/image/Boulanger/7332543834808_h_f_l_0?wid=500&hei=500',
-      ],
-    },
-  ]);
+  const [products, setProducts] = React.useState([]);
+
+  React.useEffect(() => {
+    axios(axiosConfig('GET', '/api/product/new-products'))
+      .then((res) => setProducts(res.data))
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
   return (
     <Grid sx={{ width: '100%' }}>
       <Grid

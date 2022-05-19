@@ -32,7 +32,7 @@ export default function Search() {
     e.preventDefault();
     if (!!search.key)
       return navigate(`/search/${search.category}/${search.key}`);
-    alert('La recherche est vide');
+    navigate(`/search/${search.category}/allOfSaeel`);
   };
 
   function CategoriesComponenent() {

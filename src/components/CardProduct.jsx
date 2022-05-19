@@ -23,11 +23,9 @@ export default function CardProduct({ product, marker }) {
   product.rating = { rate: 4, raters: 22 };
   function getImage(product) {
     console.log(product);
-    if (!product.Images)
-      return 'https://www.01net.com/mrf4u/statics/i/ps/img.bfmtv.com/c/630/420/1ab/aaa7d2917a46d9915bde5b6120b59.jpg?width=1200&enable=upscale';
+    if (!product.Images) return 'https://picsum.photos/id/237/200/300';
     else if (product.Images.length > 0) return product.Images[0].url;
-    else
-      return 'https://www.01net.com/mrf4u/statics/i/ps/img.bfmtv.com/c/630/420/1ab/aaa7d2917a46d9915bde5b6120b59.jpg?width=1200&enable=upscale';
+    else return 'https://picsum.photos/id/237/200/300';
   }
   return (
     <Card

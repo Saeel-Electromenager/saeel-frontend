@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { Container, Box, Stack } from '@mui/material';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -34,9 +34,10 @@ export default function Search() {
         <Container maxWidth="xl">
           <HomeSearch />
           <Stack
+            flexWrap="wrap"
             sx={{ marginTop: '60px' }}
             direction={useMediaQuery('(min-width:700px)') ? 'row' : 'column'}
-            spacing={2}
+            gap="20px"
           >
             {products.map((product, index) => {
               return (

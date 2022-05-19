@@ -31,9 +31,12 @@ export default function Profil() {
   const [userInformations, setUserInformation] = React.useState('');
   const [dialog, setDialog] = React.useState({ open: false });
   const [mineAccount, setMineAccount] = React.useState(false);
+  const [iamAdmin, setIamAdmin] = React.useState(false);
+
   const { idUser } = useParams();
   useEffect(() => {
     setMineAccount(localStorage.getItem('token').split(' ')[0] === idUser);
+
     if (localStorage.hasOwnProperty('token'))
       axios(axiosConfig('PUT', `/api/user/${idUser}`))
         .then((res) => {
@@ -49,6 +52,10 @@ export default function Profil() {
           });
           if (localStorage.getItem('token').split(' ')[0] === idUser)
             localStorage.setItem('userInformations', JSON.stringify(res.data));
+          if (localStorage.hasOwnProperty('userInformations'))
+            setIamAdmin(
+              JSON.parse(localStorage.getItem('userInformations')).type === 3
+            );
         })
         .catch((error) => console.log(error));
   }, [idUser]);
@@ -237,7 +244,11 @@ export default function Profil() {
                   gap: '15px',
                 }}
               >
-                <Etat userType={userInformations.type} />
+                {iamAdmin && !mineAccount ? (
+                  <Etat userType={userInformations.type} />
+                ) : (
+                  ''
+                )}
                 {EditProfil()}
                 {Dashboard()}
               </Box>

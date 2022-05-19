@@ -10,6 +10,8 @@ import AddProduct from './pages/AddProduct';
 import Search from './pages/Search.jsx';
 import Product from './pages/Product';
 import Dashboard from './pages/Dashboard';
+import TopSaeel from './pages/TopSaeel';
+import NewProducts from './pages/NewProducts';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
@@ -20,8 +22,10 @@ root.render(
         <Route path="/dashboard" element={<Dashboard />}></Route>
         <Route path="/product/:idProduct" element={<Product />}></Route>
         <Route path="/login" element={<Login />}></Route>
+        <Route path="/top-saeel" element={<TopSaeel />}></Route>
         <Route path="/register" element={<Register />}></Route>
         <Route path="/dashboard/addproduct" element={<AddProduct />}></Route>
+        <Route path="/new-product" element={<NewProducts />}></Route>
         <Route
           path="/search/:searchCategory/:searchKey"
           element={<Search />}

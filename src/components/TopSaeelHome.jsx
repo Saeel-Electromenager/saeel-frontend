@@ -36,7 +36,7 @@ export default function TopRatedHome() {
   const [products, setProduct] = React.useState([]);
 
   React.useEffect(() => {
-    axios(axiosConfig('GET', '/api/product/top-rated'))
+    axios(axiosConfig('GET', '/api/product/top-saeel'))
       .then((res) => {
         setProduct(res.data);
       })
@@ -69,7 +69,7 @@ export default function TopRatedHome() {
         </Typography>
         <Link
           className="show-more-top-rate-products"
-          to="/top-rate"
+          to="/top-saeel"
           style={{
             textDecoration: 'none',
             fontFamily: 'Poppins',
