@@ -7,7 +7,7 @@ import IconButton from '@mui/material/IconButton';
 import MuiBox from './MuiBox';
 import { Link } from 'react-router-dom';
 
-export default function Header() {
+export default function Header({ setActiveClasse }) {
   return (
     <Grid>
       <Stack pb={4} pt={3} direction="row" spacing={1}>
@@ -34,7 +34,7 @@ export default function Header() {
               orientation="vertical"
             />
             <>
-              <MuiBox />
+              <MuiBox setActiveClasse={setActiveClasse} />
             </>
           </Stack>
         </Grid>

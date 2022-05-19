@@ -5,6 +5,7 @@ import MuiAccordion from '@mui/material/Accordion';
 import MuiAccordionSummary from '@mui/material/AccordionSummary';
 import MuiAccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
+import { Box } from '@mui/material';
 
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -50,7 +51,7 @@ export default function CustomizedAccordions() {
   };
 
   return (
-    <div>
+    <Box>
       <Accordion
         expanded={expanded === 'panel1'}
         onChange={handleChange('panel1')}
@@ -60,7 +61,7 @@ export default function CustomizedAccordions() {
           <Typography>Qui sommes nous</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography>
+          <Typography width={'100%'}>
             chez Saeel, notre mission est de vous offrir des produits de marque
             garantie livrer en temps record, qui prouvent que vous êtes
             importants pour nous. Non seulement nos produits electromenagers
@@ -83,7 +84,7 @@ export default function CustomizedAccordions() {
           <Typography>Protection de l'achteur</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography>
+          <Typography width={'100%'}>
             Garantie de remboursement :<br />
             <br />
             • Si l'article n'est pas livré durant la période de protection de
@@ -121,7 +122,7 @@ export default function CustomizedAccordions() {
           <Typography>Rapelle des produits</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography>
+          <Typography width={'100%'}>
             Le temps d'emballage correspond au nombre de jours ouvrables qu'il
             faudra a saeel pour procéder à l'envoi proprement dit de votre
             article après réception de la commande. Les "jours ouvrables"
@@ -156,7 +157,7 @@ export default function CustomizedAccordions() {
           <Typography>Données personnelles</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography>
+          <Typography width={'100%'}>
             Les données traitées par Saell sont principalement collectées via
             les formulaires accessibles sur notre site web, ou lors de la
             création du compte par un visiteur du site internet , exception
@@ -181,7 +182,7 @@ export default function CustomizedAccordions() {
           <Typography>Utilisations des cookies</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography>
+          <Typography width={'100%'}>
             les Cookies que nous utilisons relèvent uniquement de l’analyse,
             c’est-à-dire des Cookies utiles à l’élaboration de statistiques pour
             Google Analytics et autres outils d’analyse SEO :<br />
@@ -209,7 +210,7 @@ export default function CustomizedAccordions() {
           <Typography>Les garanties</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography>
+          <Typography width={'100%'}>
             Si le produit acheté ne correspond pas à la description ou s'il
             n'est pas arrivé à la date prévue, nous garantissons votre
             remboursement. Vous recevrez l'argent dans les 15 jours suivant la
@@ -220,6 +221,6 @@ export default function CustomizedAccordions() {
           </Typography>
         </AccordionDetails>
       </Accordion>
-    </div>
+    </Box>
   );
 }

@@ -6,7 +6,7 @@ import * as React from 'react';
 import IconButton from '@mui/material/IconButton';
 import DehazeIcon from '@mui/icons-material/Dehaze';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -25,10 +25,16 @@ import Collapse from '@mui/material/Collapse';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 
-export default function MuiBox() {
+export default function MuiBox({ setActiveClasse }) {
+  const pathname = useLocation().pathname;
   const navigate = useNavigate();
   const [IsDrawerOpen, setIsDrawerOpen] = useState(false);
   const [open, setOpen] = React.useState(true);
+  const [atHome, setAtHome] = React.useState(true);
+
+  React.useEffect(() => {
+    setAtHome(pathname === '/');
+  }, [pathname]);
 
   const handleClick = () => {
     setOpen(!open);
@@ -40,11 +46,25 @@ export default function MuiBox() {
       const idUser = localStorage.getItem('token').split(' ')[0];
       return (
         <Link to={`/user/${idUser}`}>
-          <ListItemButton>
+          <ListItemButton
+            sx={[
+              {
+                '&:hover': {
+                  backgroundColor: '#382a93',
+                },
+              },
+              {
+                color: 'white',
+                backgroundColor: '#5C4EBD',
+                borderRadius: '10px',
+                my: 1,
+              },
+            ]}
+          >
             <ListItemIcon>
-              <AccountCircleIcon />
+              <AccountCircleIcon sx={{ color: 'white' }} />
             </ListItemIcon>
-            <ListItemText primary="Profil" />
+            <ListItemText primary="Profile" />
           </ListItemButton>
         </Link>
       );
@@ -92,7 +112,7 @@ export default function MuiBox() {
   };
 
   return (
-    <>
+    <Box>
       <IconButton
         size="large"
         aria-label="logo"
@@ -103,7 +123,7 @@ export default function MuiBox() {
       <Drawer
         anchor="right"
         open={IsDrawerOpen}
-        onClose={() => setIsDrawerOpen(false)}
+        onClick={() => setIsDrawerOpen(false)}
       >
         <Box p={2} width="250px" textAlign="center" role="presentation">
           <List
@@ -111,37 +131,53 @@ export default function MuiBox() {
             component="nav"
             aria-labelledby="nested-list-subheader"
           >
-            <ListItemButton onClick={() => console.log('1')}>
-              <ListItemIcon>
-                <HomeIcon />
-              </ListItemIcon>
-              <ListItemText primary="Accueil" />
-            </ListItemButton>
+            <Link sx={{ color: 'red' }} to="/">
+              <ListItemButton>
+                <ListItemIcon>
+                  <HomeIcon />
+                </ListItemIcon>
+                <ListItemText sx={{ color: 'black' }} primary="Accueil" />
+              </ListItemButton>
+            </Link>
 
             {LinkToProfile()}
 
-            <ListItemButton>
+            <ListItemButton
+              onClick={() => {
+                return !atHome ? navigate('/') : setActiveClasse('Categories');
+              }}
+            >
               <ListItemIcon>
                 <MenuIcon />
               </ListItemIcon>
               <ListItemText primary="Catalogue" />
             </ListItemButton>
 
-            <ListItemButton>
-              <ListItemIcon>
-                <StarOutlineOutlinedIcon />
-              </ListItemIcon>
-              <ListItemText primary="Top Saeel" />
-            </ListItemButton>
+            <Link to="/top-saeel">
+              <ListItemButton>
+                <ListItemIcon>
+                  <StarOutlineOutlinedIcon />
+                </ListItemIcon>
+                <ListItemText sx={{ color: 'black' }} primary="Top Saeel" />
+              </ListItemButton>
+            </Link>
 
-            <ListItemButton>
+            <ListItemButton
+              onClick={() => {
+                return !atHome ? navigate('/') : setActiveClasse('About');
+              }}
+            >
               <ListItemIcon>
                 <InfoOutlinedIcon />
               </ListItemIcon>
               <ListItemText primary="A propos" />
             </ListItemButton>
 
-            <ListItemButton>
+            <ListItemButton
+              onClick={() => {
+                return !atHome ? navigate('/') : setActiveClasse('FAQ');
+              }}
+            >
               <ListItemIcon>
                 <FaqIcon />
               </ListItemIcon>
@@ -162,6 +198,6 @@ export default function MuiBox() {
           </List>
         </Box>
       </Drawer>
-    </>
+    </Box>
   );
 }

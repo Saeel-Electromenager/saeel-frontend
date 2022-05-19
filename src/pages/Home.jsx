@@ -11,7 +11,7 @@ export default function Home() {
   const [activeClasse, setActiveClasse] = React.useState('Home');
   return (
     <Container maxWidth="100%">
-      <Header />
+      <Header setActiveClasse={setActiveClasse} />
       <Grid sx={{ display: 'flex', flexDirection: 'row' }}>
         {/* Menu */}
         <Grid

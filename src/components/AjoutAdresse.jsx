@@ -21,8 +21,11 @@ function SimpleDialog({ onClose, selectedValue, open, values, handleChange }) {
   const addadress = () => {
     console.log(values);
     axios(axiosConfig('POST', '/api/adress/add', values))
-      .then((res) => console.log(res.data))
-      .catch((err) => console.log(err));
+      .then((res) => {
+        // window.location.reload(false);
+        onClose();
+      })
+      .catch((err) => alert('Erreur server'));
   };
 
   return (
@@ -88,14 +91,12 @@ function SimpleDialog({ onClose, selectedValue, open, values, handleChange }) {
 SimpleDialog.propTypes = {
   onClose: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
-  selectedValue: PropTypes.string.isRequired,
 };
 
 export default function AjoutAdresse() {
   const [values, setValues] = React.useState({
     wilaya: '',
     daira: '',
-
     commune: '',
     adress: '',
     phone: '',
@@ -105,7 +106,7 @@ export default function AjoutAdresse() {
   };
 
   const [open, setOpen] = React.useState(false);
-  const [selectedValue, setSelectedValue] = React.useState('');
+  const [selectedValue, setSelectedValue] = React.useState(true);
 
   const handleClickOpen = () => {
     setOpen(true);

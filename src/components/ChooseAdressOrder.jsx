@@ -4,16 +4,14 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
-import { Container, Button, Box } from '@mui/material';
+import { Container, Box } from '@mui/material';
+import AjoutAdresse from './AjoutAdresse';
 
-export default function ChooseAdressOrder({ adresses }) {
-  const [selectedAdress, setSelectedAdress] = React.useState('');
-
-  const handleChange = (event) => {
-    setSelectedAdress(event.target.value);
-    console.log(selectedAdress);
-  };
-
+export default function ChooseAdressOrder({
+  adresses,
+  selectedAdress,
+  handleChange,
+}) {
   return (
     <Container>
       <FormControl>
@@ -41,7 +39,7 @@ export default function ChooseAdressOrder({ adresses }) {
           {!adresses.length ? (
             <Box>
               Aucune adresse trouvé
-              <Button>Ajouter une adresse</Button>
+              <AjoutAdresse />
             </Box>
           ) : (
             ''

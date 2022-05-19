@@ -14,13 +14,21 @@ import {
   Divider,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import { useNavigate } from 'react-router-dom';
 import ChooseAdressOrder from './ChooseAdressOrder';
 import axios from 'axios';
 import axiosConfig from '../configurations/axiosConfig';
 
 export default function DialogOrder({ open, setOpen, product }) {
+  const navigate = useNavigate();
   const [qtty, setQtty] = React.useState(1);
   const [adresses, setAdresses] = React.useState([]);
+  const [selectedAdress, setSelectedAdress] = React.useState('');
+
+  const handleChange = (event) => {
+    setSelectedAdress(event.target.value);
+    console.log(selectedAdress);
+  };
   const newPrice = product.price * (1 - product.discount / 100);
   const handleClose = () => {
     setOpen(false);
@@ -35,15 +43,23 @@ export default function DialogOrder({ open, setOpen, product }) {
         console.log(res.data);
       })
       .catch((err) => console.log(err));
-  }, []);
-  function takeOrder() {
+  }, [open]);
+
+  function takeOrder(event) {
+    event.preventDefault();
     axios(
-      axiosConfig('POST', '/api/order/new', {
+      axiosConfig('POST', '/api/order/new/', {
         idProduct: product.idProduct,
         qtty: qtty,
-        idAdress: product.idAdress,
+        idAdress: selectedAdress,
       })
-    );
+    )
+      .then((res) => {
+        navigate('/user/' + localStorage.getItem('token').split(' ')[0]);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
   return (
     <Dialog
@@ -76,7 +92,11 @@ export default function DialogOrder({ open, setOpen, product }) {
       <DialogTitle id="alert-dialog-title">
         Confirmation de la commande
       </DialogTitle>
-      <ChooseAdressOrder adresses={adresses} />
+      <ChooseAdressOrder
+        selectedAdress={selectedAdress}
+        handleChange={handleChange}
+        adresses={adresses}
+      />
       <DialogContent sx={{ overflowX: 'hidden' }}>
         <DialogContentText id="alert-dialog-description">
           La quantité à acheter

@@ -21,7 +21,7 @@ const axiosConfig = require('../configurations/axiosConfig');
 
 export default function Product() {
   const [productInformations, setProductInformations] = React.useState('');
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
 
   const { idProduct } = useParams();
   useEffect(() => {
@@ -95,6 +95,9 @@ export default function Product() {
                     {getUsername()}
                   </Typography>
                   <Typography variant="body2">{getDescription()}</Typography>
+                  <Typography variant="body2">
+                    Disponible : {productInformations.quantity} en stock.
+                  </Typography>
                 </CardContent>
                 <CardActions sx={{ marginTop: 'auto', marginLeft: 'auto' }}>
                   <Button onClick={() => setOpen(true)} size="small">

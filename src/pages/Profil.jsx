@@ -126,7 +126,7 @@ export default function Profil() {
                 <Typography>{adress.commune}</Typography>
                 <Typography>{adress.phone}</Typography>
                 <Typography>{adress.adress}</Typography>
-          
+
                 <Typography style={{ marginLeft: '60%' }}>
                   <Button>modifier</Button>
                 </Typography>
@@ -138,26 +138,52 @@ export default function Profil() {
     return null;
   }
 
+  function getAdressByOrder(idAdress) {
+    const adresse = userInformations.Adresses.filter((adress) => {
+      return adress.idAdress === idAdress;
+    });
+    console.log(adresse);
+    if (adresse) return adresse[0];
+    return '';
+  }
   function Commandes() {
-    return (
-      <Grid item md={4} xs={8} sm={6} lg={3} textAlign="left">
-        <Card sx={{ minWidth: 215 }}>
-          <CardContent>
-            <Typography sx={{ fontSize: 14 }}>Montre connecté</Typography>
-            <Typography variant="h5" component="div"></Typography>
-            <Typography>Béjaia</Typography>
-            <Typography>Montant : 130000.00 DA</Typography>
-            <Typography>Délai de laivrison : 5 jours</Typography>
-            <Typography variant="subtitle1">
-              Etat : En attente de ccdcdzzdzdz
-            </Typography>
-            <CardActions>
-              <Button sx={{ marginLeft: 'auto' }}>Voir les détails</Button>
-            </CardActions>
-          </CardContent>
-        </Card>
-      </Grid>
-    );
+    if (userInformations.Orders)
+      return (
+        <Grid container gap={2} item direction="row" md={12} textAlign="left">
+          {userInformations.Orders.map((order, index) => {
+            return (
+              <Card
+                key={`${order.idOrder}-${index}`}
+                sx={{ minWidth: 215, maxWidth: 300 }}
+              >
+                <CardContent>
+                  <Typography sx={{ fontSize: 14 }}>
+                    {order.Product.title}
+                  </Typography>
+                  <Typography variant="h5" component="div"></Typography>
+                  <Typography>
+                    {getAdressByOrder(order.idAdress).wilaya}
+                    {' - '}
+                    {getAdressByOrder(order.idAdress).daira}
+                    {' - '}
+                    {getAdressByOrder(order.idAdress).commune}
+                  </Typography>
+                  <Typography>Montant : {order.amount}.00 DA</Typography>
+                  <Typography>Délai de laivrison : 5 jours</Typography>
+                  <Typography variant="subtitle1">
+                    Etat : En attente de ccdcdzzdzdz
+                  </Typography>
+                  <CardActions>
+                    <Button sx={{ marginLeft: 'auto' }}>
+                      Voir les détails
+                    </Button>
+                  </CardActions>
+                </CardContent>
+              </Card>
+            );
+          })}
+        </Grid>
+      );
   }
 
   function CreatedAt() {
@@ -166,8 +192,7 @@ export default function Profil() {
   }
 
   function EditProfil() {
-    const userType = userInformations.type;
-    if (!!userType && mineAccount)
+    if (mineAccount)
       return (
         <Box>
           <Button onClick={handleOpen} variant="contained">
@@ -309,7 +334,9 @@ export default function Profil() {
           <Commandes />
           <Grid item md={4} xs={8} sm={6} lg={3} m="auto" p={3}>
             <Card sx={{ minWidth: 215 }}>
-              <Button>Ajouter une commande</Button>
+              <Link to="/top-saeel">
+                <Button>Ajouter une commande</Button>
+              </Link>
             </Card>
           </Grid>
         </Grid>

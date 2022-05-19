@@ -3,7 +3,9 @@ import HomeSearch from './HomeSearch';
 import SwiperHome from '../components/SwiperHome';
 import ArgumentHome from '../components/ArgumentHome';
 import TopSaeelHome from '../components/TopSaeelHome';
-import TopSaeelBody from './TopSaeelBody.jsx';
+import TopSaeelBody from './TopSaeelBody';
+import About from './About';
+import Faq from './Faq';
 import NewProductHome from '../components/NewProductHome';
 import CategoriesHome from '../components/CategoriesHome';
 import CategorieInMenu from './CategorieInMenu.jsx';
@@ -39,6 +41,18 @@ export default function Body({ activeClasse }) {
         return (
           <Grid>
             <TopSaeelBody />
+          </Grid>
+        );
+      case 'About':
+        return (
+          <Grid>
+            <About />
+          </Grid>
+        );
+      case 'FAQ':
+        return (
+          <Grid>
+            <Faq />
           </Grid>
         );
 
