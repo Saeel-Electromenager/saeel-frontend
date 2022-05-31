@@ -15,10 +15,13 @@ import {
   DialogActions,
 } from '@mui/material';
 import MuiAlert from '@mui/material/Alert';
+import IconButton from '@mui/material/IconButton';
+
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { useNavigate } from 'react-router-dom';
 
 import { Link } from 'react-router-dom';
-import Footer from '../components/Footer';
 
 import loginIcon from '../assets/img_bac.jpg';
 import '../styles/Login.css';
@@ -37,6 +40,10 @@ export default function Connexion() {
     login: '',
     password: '',
   });
+  const [showPassword, setShowPassword] = React.useState(false);
+  function handleClickShowPassword() {
+    setShowPassword(!showPassword);
+  }
   const [dialogValues, setDialogValues] = React.useState({
     code: '',
     open: false,
@@ -180,7 +187,7 @@ export default function Connexion() {
                     </InputAdornment>
                   ),
                 }}
-                type="email"
+                type="text"
                 id="outlined-basic"
                 label="Email ou nom d'utilisateur"
                 variant="outlined"
@@ -198,13 +205,24 @@ export default function Connexion() {
             >
               <TextField
                 InputProps={{
-                  endAdornment: (
+                  startAdornment: (
                     <InputAdornment position="start">
                       <LockIcon />
                     </InputAdornment>
                   ),
+                  endAdornment: (
+                    <InputAdornment position="start">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        edge="end"
+                      >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
                 }}
-                type="password"
+                type={showPassword ? 'text' : 'password'}
                 id="o"
                 label="password"
                 variant="outlined"
@@ -268,7 +286,6 @@ export default function Connexion() {
           {snackbarOpen.message}
         </Alert>
       </Snackbar>
-      <Footer />
 
       <Dialog open={dialogValues.open}>
         <DialogTitle>Confimez votre Email</DialogTitle>

@@ -32,9 +32,16 @@ export default function Profil() {
   const [dialog, setDialog] = React.useState({ open: false });
   const [mineAccount, setMineAccount] = React.useState(false);
   const [iamAdmin, setIamAdmin] = React.useState(false);
+  const [favorites, setFavorites] = React.useState([]);
 
   const { idUser } = useParams();
   useEffect(() => {
+    axios(axiosConfig('GET', '/api/favorite/favorites'))
+      .then((res) => {
+        setFavorites(res.data);
+        console.log(res.data);
+      })
+      .catch((err) => console.log(err));
     setMineAccount(localStorage.getItem('token').split(' ')[0] === idUser);
 
     if (localStorage.hasOwnProperty('token'))
@@ -138,6 +145,36 @@ export default function Profil() {
     return null;
   }
 
+  function Favorites() {
+    if (favorites)
+      return favorites.map((fav) => {
+        return (
+          <Grid
+            key={fav.idAdress}
+            item
+            md={4}
+            xs={8}
+            sm={6}
+            lg={3}
+            textAlign="left"
+            p={3}
+          >
+            <Card sx={{ minWidth: 215 }}>
+              <CardContent>
+                <Typography>Produit ID :{fav.idProduct}</Typography>
+                <Typography style={{ marginLeft: '60%' }}>
+                  <Link to={'/product/' + fav.idProduct}>
+                    <Button>Voir produit</Button>
+                  </Link>
+                </Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+        );
+      });
+    return null;
+  }
+
   function getAdressByOrder(idAdress) {
     const adresse = userInformations.Adresses.filter((adress) => {
       return adress.idAdress === idAdress;
@@ -157,7 +194,7 @@ export default function Profil() {
                 sx={{ minWidth: 215, maxWidth: 300 }}
               >
                 <CardContent>
-                  <Typography sx={{ fontSize: 14 }}>
+                  <Typography sx={{ color: 'red', fontSize: 14 }}>
                     {order.Product.title}
                   </Typography>
                   <Typography variant="h5" component="div"></Typography>
@@ -171,7 +208,7 @@ export default function Profil() {
                   <Typography>Montant : {order.amount}.00 DA</Typography>
                   <Typography>Délai de laivrison : 5 jours</Typography>
                   <Typography variant="subtitle1">
-                    Etat : En attente de ccdcdzzdzdz
+                    Etat : {getEtat(order.status)}
                   </Typography>
                   <CardActions>
                     <Button sx={{ marginLeft: 'auto' }}>
@@ -214,6 +251,23 @@ export default function Profil() {
         </Link>
       );
     return null;
+  }
+  function getEtat(status) {
+    switch (status) {
+      case -1:
+        return 'Annuler par le fournisseur';
+      case 0:
+        return 'En attente de traitement';
+      case 1:
+        return 'En cours de livraison';
+      case 2:
+        return 'Livré';
+      case 3:
+        return 'Confirmé';
+
+      default:
+        break;
+    }
   }
 
   return (
@@ -319,6 +373,8 @@ export default function Profil() {
             </Card>
           </Grid>
         </Grid>
+
+        <Favorites />
 
         <Grid
           item

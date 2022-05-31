@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Container, Box, Grid, Typography } from '@mui/material';
+import { Box, Grid, Typography } from '@mui/material';
 import '../styles/Home.css';
 import Emsaeel from '../assets/emsaeel.jpg';
 import propos from '../assets/propos.png';

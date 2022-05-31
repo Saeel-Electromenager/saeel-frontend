@@ -8,6 +8,7 @@ import {
   CardActions,
   Button,
   CardMedia,
+  Checkbox,
 } from '@mui/material';
 import React, { useEffect } from 'react';
 import Header from '../components/Header';
@@ -16,15 +17,41 @@ import DialogOrder from '../components/DialogOrder';
 import '../styles/Product.css';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
+import Favorite from '@mui/icons-material/Favorite';
 
 const axiosConfig = require('../configurations/axiosConfig');
+const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
 export default function Product() {
   const [productInformations, setProductInformations] = React.useState('');
   const [open, setOpen] = React.useState(false);
+  const [checked, setChecked] = React.useState(false);
 
   const { idProduct } = useParams();
+
+  const handleChange = (event) => {
+    axios(
+      axiosConfig('POST', '/api/favorite/modify', {
+        status: event.target.checked,
+        idProduct: idProduct,
+      })
+    )
+      .then((res) => console.log(res.data))
+      .catch((err) => console.log(err));
+    setChecked(event.target.checked);
+  };
+
   useEffect(() => {
+    axios(axiosConfig('GET', '/api/favorite/favorites/'))
+      .then((res) => {
+        setChecked(!!res.data.length);
+      })
+      .catch((error) => {
+        console.log('?');
+        console.log(error);
+      });
+
     axios(axiosConfig('PUT', `/api/product/${idProduct}`))
       .then((res) => {
         console.log(res.data);
@@ -103,6 +130,13 @@ export default function Product() {
                   <Button onClick={() => setOpen(true)} size="small">
                     Acheter
                   </Button>
+                  <Checkbox
+                    checked={checked}
+                    onChange={handleChange}
+                    {...label}
+                    icon={<FavoriteBorder />}
+                    checkedIcon={<Favorite />}
+                  />
                 </CardActions>
               </Grid>
             </Grid>

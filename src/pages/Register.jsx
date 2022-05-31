@@ -8,6 +8,11 @@ import {
   Select,
   MenuItem,
   Snackbar,
+  Dialog,
+  DialogTitle,
+  DialogActions,
+  DialogContent,
+  Typography,
 } from '@mui/material';
 import MuiAlert from '@mui/material/Alert';
 
@@ -42,12 +47,22 @@ export default function Inscription() {
     message: '',
     type: '',
   });
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
   };
 
-  const register = () => {
+  const register = (event) => {
+    event.preventDefault();
     const month = values.month < 10 ? '0' + values.month : values.month;
     const day = values.day < 10 ? '0' + values.day : values.day;
     const birthdate = values.year + '-' + month + '-' + day;
@@ -68,10 +83,9 @@ export default function Inscription() {
         setDialog(true);
       })
       .catch((error) => {
-        console.log(error);
         setSnackbarOpen({
           status: true,
-          message: error.data.message,
+          message: error.response.data.error || 'Erreur inattendus 😅',
           type: 'error',
         });
       });
@@ -90,7 +104,7 @@ export default function Inscription() {
 
   return (
     <Grid container justifyContent="center">
-      <Grid item md={6} textAlign="center">
+      <Grid onSubmit={register} component="form" item md={6} textAlign="center">
         <Link to="/">
           <nav style={{ width: '100%', textAlign: 'left' }}>
             <img src={Logo} href="ezzz" alt="" className="logo" />
@@ -102,6 +116,7 @@ export default function Inscription() {
         <Grid textAlign="center" p={3}>
           <TextField
             id="nom"
+            required
             label="nom"
             variant="outlined"
             value={values.weight}
@@ -109,6 +124,7 @@ export default function Inscription() {
             style={{ paddingRight: '40px', width: '40%' }}
           />
           <TextField
+            required
             id="prenom"
             label="prenom"
             variant="outlined"
@@ -119,6 +135,7 @@ export default function Inscription() {
         </Grid>
         <Grid pb={3}>
           <TextField
+            required
             id="utilisateur"
             label="nom d'utilisateur"
             variant="outlined"
@@ -130,6 +147,7 @@ export default function Inscription() {
 
         <Grid pb={3}>
           <TextField
+            required
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -139,7 +157,7 @@ export default function Inscription() {
             }}
             id="mail"
             label="Adresse E-mail"
-            type="mail"
+            type="email"
             variant="outlined"
             value={values.weight}
             onChange={handleChange('email')}
@@ -148,6 +166,7 @@ export default function Inscription() {
         </Grid>
         <Grid>
           <TextField
+            required
             id="outlined-password-input"
             label="mot de passe"
             type="password"
@@ -172,8 +191,9 @@ export default function Inscription() {
         <Grid container p={3}>
           <Grid item xs={2} ml={5}>
             <TextField
+              required
               InputProps={{ inputProps: { min: 0, max: 31 } }}
-              id="outlined-number"
+              id="outlined-number2"
               label="jour"
               type="number"
               value={values.day}
@@ -185,6 +205,7 @@ export default function Inscription() {
           </Grid>
           <Grid item xs={4}>
             <Select
+              required
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               value={values.month}
@@ -207,6 +228,7 @@ export default function Inscription() {
           </Grid>
           <Grid item xs={3} md={2}>
             <TextField
+              required
               InputProps={{
                 inputProps: { min: 1940, max: new Date().getFullYear() - 13 },
               }}
@@ -225,11 +247,18 @@ export default function Inscription() {
         <Grid p={2}>
           <FormControlLabel
             value="end"
-            control={<Checkbox />}
+            required
+            control={<Checkbox required />}
             label={
               <div>
-                <span> j'ai lu et j'accepte </span>
-                <a href="/"> les conditions d'utilisation </a>
+                <span>J'ai lu et j'accepte</span>
+                <span
+                  style={{ color: 'rgb(92 78 189)' }}
+                  onClick={handleClickOpen}
+                >
+                  {' '}
+                  les conditions d'utilisation
+                </span>
               </div>
             }
             labelPlacement="end"
@@ -244,7 +273,7 @@ export default function Inscription() {
           style={{ paddingBottom: '16px' }}
         >
           <Button
-            onClick={register}
+            type="submit"
             variant="contained"
             style={{ background: '#5C4EBD' }}
           >
@@ -291,6 +320,44 @@ export default function Inscription() {
           {snackbarOpen.message}
         </Alert>
       </Snackbar>
+
+      <Dialog
+        onClose={handleClose}
+        aria-labelledby="customized-dialog-title"
+        open={open}
+      >
+        <DialogTitle id="customized-dialog-title" onClose={handleClose}>
+          Condition générale d'utilisation (CGU - Saeel)
+        </DialogTitle>
+        <DialogContent dividers>
+          <Typography gutterBottom>
+            Les présentes CGU ou Conditions Générales d’Utilisation encadrent
+            juridiquement l’utilisation des services du site lapetiteperle
+            (ci-après dénommé « le site »). Constituant le contrat entre la
+            société La Petite Perle, l’Utilisateur, l’accès au site doit être
+            précédé de l’acceptation de ces CGU. L’accès à cette plateforme
+            signifie l’acceptation des présentes CGU.
+          </Typography>
+          <Typography gutterBottom>
+            Le site lapetiteperle permet d’accéder gratuitement aux services
+            suivants : Vente de bijoux (en or, en argent…) ; Location de bijoux
+            (en or, en argent…) ; Dépôt-vente de bijoux.
+          </Typography>
+          <Typography gutterBottom>
+            Pour la création du compte de l’Utilisateur, la collecte des
+            informations au moment de l’inscription sur le site est nécessaire
+            et obligatoire. Conformément à la loi n°78-17 du 6 janvier relative
+            à l’informatique, aux fichiers et aux libertés, la collecte et le
+            traitement d’informations personnelles s’effectuent dans le respect
+            de la vie privée.
+          </Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button autoFocus onClick={handleClose}>
+            Compris
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Grid>
   );
 }

@@ -14,13 +14,20 @@ import {
   Divider,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import PdfComponent from './PdfComponent';
 import ChooseAdressOrder from './ChooseAdressOrder';
 import axios from 'axios';
 import axiosConfig from '../configurations/axiosConfig';
 
 export default function DialogOrder({ open, setOpen, product }) {
-  const navigate = useNavigate();
+  const [openPrint, setOpenPrint] = React.useState(false);
+  const [productPrint, setProductPrint] = React.useState('');
+
+  const handleClickOpenPrint = () => {
+    setOpenPrint(true);
+  };
+
   const [qtty, setQtty] = React.useState(1);
   const [adresses, setAdresses] = React.useState([]);
   const [selectedAdress, setSelectedAdress] = React.useState('');
@@ -55,7 +62,17 @@ export default function DialogOrder({ open, setOpen, product }) {
       })
     )
       .then((res) => {
-        navigate('/user/' + localStorage.getItem('token').split(' ')[0]);
+        let order = {
+          ...res.data,
+          price: product.price,
+          title: product.title,
+          quantity: qtty,
+        };
+        setProductPrint(order);
+        console.log(order);
+        handleClickOpenPrint();
+        console.log(res.data);
+        // navigate('/user/' + localStorage.getItem('token').split(' ')[0]);
       })
       .catch((error) => {
         console.log(error);
@@ -137,6 +154,24 @@ export default function DialogOrder({ open, setOpen, product }) {
           Confirmer
         </Button>
       </DialogActions>
+
+      <Dialog
+        open={openPrint}
+        fullWidth
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          Commande confirmé, imprimer le reçu ?
+        </DialogTitle>
+        <DialogContent></DialogContent>
+        <DialogActions>
+          <Link to="/">
+            <Button>Aller à l'accuil</Button>
+          </Link>
+          <PdfComponent order={productPrint} />
+        </DialogActions>
+      </Dialog>
     </Dialog>
   );
 }
