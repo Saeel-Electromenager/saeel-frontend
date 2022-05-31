@@ -1,0 +1,12 @@
+<svg
+    width="72"
+    height="27"
+    viewBox="0 0 72 27"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    >
+        <path d="M0 0H58V24H0V0Z" fill="#FA533C" />
+        <path d="M5 27L0 24H5V27Z" fill="#A33D2F" />
+        <path d="M72 0L58 12V0H72Z" fill="#FA533C" />
+        <path d="M72 24H58V12L72 24Z" fill="#FA533C" />
+</svg>

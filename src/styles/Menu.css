@@ -1,0 +1,73 @@
+.container {
+  width: 100%;
+}
+
+.svg_icons {
+  transform: scale(1.6);
+  margin: 0 6px 0 20px;
+}
+
+.svg_icons_connection {
+  transform: scale(1.4);
+  margin: 0 5px 0 2px;
+}
+
+.container Button {
+  border-radius: 10px 0 0 10px;
+  color: #CACCD9;
+  justify-content: left;
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 17px;
+  line-height: 30px;
+  padding: 15px 15px 15px 0;
+}
+
+.container Button.active {
+  color: #101010;
+  background-color: #fcfcfc;
+  border-radius: 10px 0 0 10px;
+}
+
+.container Button:hover {
+  color: #101010;
+  background-color: #ffffff;
+}
+
+
+
+.button-connection-home Button.button-connection {
+  border-radius: 10px;
+  color: #F1F4F5;
+  background-color: #5C4EBD;
+  justify-content: center;
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 15px;
+  padding: 10px 15px;
+  line-height: 30px;
+}
+
+.button-connection-home Button.button-connection:hover {
+  color: #101010;
+
+  background-color: #ffffff;
+}
+
+.button-connection-home Button .svg_icons {
+  transform: scale(1.4);
+}
+
+.account-mobile {
+  color: #5C4EBD;
+}
+.button-connection-home .circle-account {
+  background-color: transparent;
+  transform: scale(1.6);
+  margin-left: 10px;
+}
+.button-connection-home Button:hover {
+  background-color: transparent;
+}

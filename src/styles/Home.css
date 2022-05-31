@@ -1,0 +1,23 @@
+.show-more-top-rate-products {
+    color: #C4C4C4;
+}
+
+.show-more-top-rate-products:hover {
+    color: #FF2406;
+}
+
+.swiper-home-show-more Button {
+    color: #FFFFFF;
+    font-family: 'Poppins';
+    font-style: normal;
+    text-transform: unset !important;
+    border-radius: 7px;
+    font-weight: 700;
+    font-size: 16px;
+    padding-left: 18px;
+    padding-right: 18px;
+    background-color: #5C4EBD;
+}
+.swiper-home-show-more Button:hover {
+    background-color: #4c4097;
+}
