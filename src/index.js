@@ -13,6 +13,7 @@ import Dashboard from './pages/Dashboard';
 import TopSaeel from './pages/TopSaeel';
 import NewProducts from './pages/NewProducts';
 import PdfComponent from './components/PdfComponent';
+import Test from './pages/test';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
@@ -28,6 +29,7 @@ root.render(
         <Route path="/dashboard/addproduct" element={<AddProduct />}></Route>
         <Route path="/new-product" element={<NewProducts />}></Route>
         <Route path="/pdf" element={<PdfComponent />}></Route>
+        <Route path="/test" element={<Test />}></Route>
         <Route
           path="/search/:searchCategory/:searchKey"
           element={<Search />}
